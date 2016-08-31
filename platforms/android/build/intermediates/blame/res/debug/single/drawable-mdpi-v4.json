@@ -1,0 +1,22 @@
+[
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_action_next_item.png",
+        "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-mdpi/ic_action_next_item.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_action_previous_item.png",
+        "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-mdpi/ic_action_previous_item.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-mdpi-v4/ic_action_remove.png",
+        "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-mdpi/ic_action_remove.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-mdpi-v4/icon.png",
+        "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-mdpi/icon.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/IONIC-Local-Notification/platforms/android/build/intermediates/res/merged/debug/drawable-mdpi-v4/icon.png",
+        "source": "/home/vielsoft-dev-6/Desktop/IONIC-Local-Notification/platforms/android/res/drawable-mdpi/icon.png"
+    }
+]

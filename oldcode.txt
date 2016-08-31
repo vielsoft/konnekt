@@ -1,0 +1,79 @@
+          <!--Enable BT in app-->  
+          <ion-toggle ng-model="btoothValue" ng-change="enaBtooth(btoothValue)" >Enable Bluetooth</ion-toggle>
+          <!--Scan Advertisements-->
+          <ion-toggle ng-model="showBeaconStatus">Scan Advertisements</ion-toggle>
+          
+          <!--Beacon Status-->
+          <div class="list" ng-show="showBeaconStatus">
+              <a class="item item-icon-left" href="#" ng-repeat='rangebeacons in rangebeacons'>
+                  <i class="icon ion-radio-waves"></i>
+                  iBeacon {{rangebeacons.length}}
+                  <span class="item-note">
+                              {{"major: " + rangebeacons.major}} </br>
+                              {{"minor: " + rangebeacons.minor}} </br>
+                  </span>
+                  <br>
+                  {{"UUID: " + rangebeacons.uuid}}
+             </a>
+          </div>
+                
+                
+                
+                
+                
+                
+<!-- Prototype code
+          <div class='list' ng-init='count = 0 '>
+               
+              <a class="item item-icon-left" href="#">
+                  <i class="icon ion-radio-waves"></i>
+                  iBeacon 1
+                  <span class="item-note">
+                              {{"major: " + rangebeacons[0].major}} </br>
+                              {{"minor: " + rangebeacons[0].minor}} </br>
+                  </span>
+                  <br>
+                  {{"UUID: " + rangebeacons[0].uuid}}
+             </a>
+             
+              <a class="item item-icon-left" href="#">
+                  <i class="icon ion-radio-waves"></i>
+                  iBeacon 2
+                  <span class="item-note">
+                              {{"major: " + rangebeacons[1].major}} </br>
+                              {{"minor: " + rangebeacons[1].minor}} </br>
+                  </span>
+                  <br>
+                  {{"UUID: " + rangebeacons[1].uuid}}
+             </a>
+             
+              <a class="item item-icon-left" href="#">
+                  <i class="icon ion-radio-waves"></i>
+                  iBeacon 3
+                  <span class="item-note">
+                              {{"major: " + rangebeacons[2].major}} </br>
+                              {{"minor: " + rangebeacons[2].minor}} </br>
+                  </span>
+                  <br>
+                  {{"UUID: " + rangebeacons[2].uuid}}
+             </a>
+            
+          </div>   
+          
+          
+          
+          
+          <div class='list'>
+                
+              <a class="item item-icon-left" href="#">
+                  <i class="ion-bug"></i>
+                  Console<span></span>
+             </a><br>
+                  
+                  {{rangebeacons}}
+              
+                
+          </div>
+       
+        
+--->

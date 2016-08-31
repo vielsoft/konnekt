@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<items version="2" >
+
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/libs/altbeacon.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="cf8e282e7c1cdf175467ed2b40a358a271cda953">
+        <dex dex="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/pre-dexed/debug/altbeacon_da5b9059027e7646e862057cbdec6f55c01a63d7.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
+        <dex dex="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_3b902b330ffba5981884ff6ef3a566f184bfc695.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Android/Sdk/extras/android/m2repository/com/android/support/support-annotations/24.0.0/support-annotations-24.0.0.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="2943c74db6d4346ab8c6531adac91fa05c137c40">
+        <dex dex="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/pre-dexed/debug/support-annotations-24.0.0_888ea1974f504aa1b07afb09be328fa79f373d35.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_3431a0be8c3a2f582e8f0e9bd420a59047d037a8.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="991ae431b2055e885b37919b3bf291d8b712105c">
+        <dex dex="/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-unspecified-debug_28d273aea55932536cfa02bd8da1f9e027d2dd5b.jar" />
+    </item>
+
+</items>
