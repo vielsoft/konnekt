@@ -102,6 +102,17 @@ module.exports = [
             "cordova.InAppBrowser.open",
             "window.open"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/www/Toast.js",
+        "id": "cordova-plugin-x-toast.Toast",
+        "clobbers": [
+            "window.plugins.toast"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-x-toast/test/tests.js",
+        "id": "cordova-plugin-x-toast.tests"
     }
 ];
 module.exports.metadata = 
@@ -116,7 +127,8 @@ module.exports.metadata =
     "de.appplant.cordova.plugin.local-notification": "0.8.4",
     "ionic-plugin-keyboard": "2.2.1",
     "com.unarin.cordova.beacon": "3.4.1",
-    "cordova-plugin-inappbrowser": "1.4.1-dev"
+    "cordova-plugin-inappbrowser": "1.4.1-dev",
+    "cordova-plugin-x-toast": "2.5.2"
 };
 // BOTTOM OF METADATA
 });

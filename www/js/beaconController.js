@@ -7,16 +7,19 @@ app.controller('ibeaconNotifyCtrl',function(
                                             $cordovaBeacon,
                                             $rootScope,
                                             $state,
-                                            $ionicPopup,
+                                            $cordovaToast,
                                             $ionicHistory,
+                                            $http,
                                             $ionicSideMenuDelegate){
+                                              
+                                              
 
+
+
+    $scope.rangebeacons = []; //Hold BEACONS in RANGE
     
-    $scope.rangebeacons = []; //Hold the beacons in range
-    
-    //Let the user enable and disable the bluetooth through in app
+    //DISABLE and ENABLE BT in application
     $scope.enaBtooth =function(btoothValue){
-      
         if(btoothValue== true){
             console.log('Bluetooth is enable in app');
             $cordovaBeacon.enableBluetooth();
@@ -27,13 +30,12 @@ app.controller('ibeaconNotifyCtrl',function(
         }
     };
     
-    //Handle side menu preferences
+    //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
       $ionicSideMenuDelegate.toggleLeft()
     };
     
-    
-    //Handle missed notifications
+    //Handle the miss ads FORWARD and BACKWARD
     $scope.goBackward = function(){
       $window.history.back();
     };
@@ -46,34 +48,30 @@ app.controller('ibeaconNotifyCtrl',function(
 
     
 
+    //************** data.json Service *******************
+      var len;                                  
+      $scope.data =[];                                         
+      $http.get('data/data.json').success(function(data){
+        $scope.data = data.info;
+        len = $scope.data.length;  
+      });
+    //************** data.json Service *******************
 
     
     
     $ionicPlatform.ready(function(){     
       
-      //Detect wether the bluetoth hardware is enabled
+     //Detect if BT HARDWARE is enabled 
       $cordovaBeacon.isBluetoothEnabled().then(function(state){
-        
         if(state == true){
-          
               console.log('Bluetooth is enabled . . .');
-        
+              $cordovaToast.show("Bluetooth is enabled","short","center");
         }
         else{
               console.log('Bluetooth is disabled . . . ');
-             
-              //Notify user that bluetooth is disabled
-              $ionicPopup.alert({
-                title: 'iBeacon Notify',
-                template: 'Please turn on bluetooth in your settings'
-              });
+              $cordovaToast.show("Please enable bluetooth on your settings","long","center");
         }
-   
       });
-      
-      
-      
-      
       
       
       
@@ -87,7 +85,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
 
       $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data) {
-          $scope.allBeacons = data;
+         
           $scope.rangebeacons = data.beacons; 
           var majorBeacons;
           var minorBeacons;
@@ -101,72 +99,34 @@ app.controller('ibeaconNotifyCtrl',function(
             
           }
           
-          
-          // Filter values of major and minor to be thrown in notifications
-          if(majorBeacons == 25692 && minorBeacons == 33803 ){
-            
-            // code where to throw the call notifications for candy  
-            console.log('Candy is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '001',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Candy",
-              icon: 'res://icon.png'
-            
-            });
-           
-            $state.go('candy');
-            
-          
-          }
-          else if(majorBeacons == 51669 && minorBeacons == 32724 ){
-              
-            // code where to throw the call notifications for lemon  
-            console.log('Lemon is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '002',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Lemon",
-              icon: 'res://icon.png'
-            
-            });
 
-            $state.go('lemon');
-            
+          var i;
+          for(i = 0; i < len; i++){
+              //Filter the MINOR and MAJOR values
+              if(majorBeacons == $scope.data[i].major && minorBeacons == $scope.data[i].minor ){
+                
+                // code where to throw the call notifications for candy    
+                $cordovaLocalNotification.schedule({
+                  
+                  id: $scope.data[i].id,
+                  title: $scope.data[i].title,
+                  text: $scope.data[i].text,
+                  icon: $scope.data[i].icons,
+                  smallIcon:"res://icon"
+                
+                });
+                $state.go($scope.data[i].state);
+              }
+              else{
+                console.log('No beacons is in range . . .');          
+              }
           }
-          else if(majorBeacons == 28140 && minorBeacons == 15530 ){
-            
-            // code where to throw the call notifications for beetroot 
-            console.log('Beetroot is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '003',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Beetroot",
-              icon: 'res://icon.png'
-            
-            });
-            
-            $state.go('beetroot');
-          
-          }
-          else{
-            
-            console.log('No beacons is in range . . .');          
-          }
-
- 
           $scope.$apply();
       });
       
       $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
     
+
     });
 
-
-
-    
-  
 });

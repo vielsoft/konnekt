@@ -33,6 +33,9 @@
         },
         "cordova-plugin-inappbrowser": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         }
     },
     "dependent_plugins": {

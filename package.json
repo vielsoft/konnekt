@@ -32,6 +32,10 @@
     {
       "locator": "https://github.com/michaeljymsgutierrez/cordova-plugin-inappbrowser",
       "id": "cordova-plugin-inappbrowser"
+    },
+    {
+      "locator": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
+      "id": "cordova-plugin-x-toast"
     }
   ],
   "cordovaPlatforms": [

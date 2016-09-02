@@ -6,5 +6,9 @@
     {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon.png",
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-ldpi/icon.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-ldpi-v4/icon.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-ldpi/icon.png"
     }
 ]

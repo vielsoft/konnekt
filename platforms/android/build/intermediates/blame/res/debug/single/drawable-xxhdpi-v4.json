@@ -4,6 +4,14 @@
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-Local-Notification/platforms/android/res/drawable-xxhdpi/icon.png"
     },
     {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/icon.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-xxhdpi/icon.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_next_item.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-xxhdpi/ic_action_next_item.png"
+    },
+    {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_remove.png",
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-xxhdpi/ic_action_remove.png"
     },
@@ -12,8 +20,16 @@
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-xxhdpi/icon.png"
     },
     {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_previous_item.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-xxhdpi/ic_action_previous_item.png"
+    },
+    {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_next_item.png",
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/drawable-xxhdpi/ic_action_next_item.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_remove.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-xxhdpi/ic_action_remove.png"
     },
     {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/drawable-xxhdpi-v4/ic_action_previous_item.png",

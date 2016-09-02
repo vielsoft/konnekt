@@ -8,3 +8,22 @@ app.service('disableBack',function($ionicHistory){
     };
     
 });
+
+
+//Pending as service to be  called
+app.service('beaconService',function(){
+    
+      var len;                                  
+      $scope.data =[];       
+                                        
+      $http.get('data/data.json').success(function(data){
+          
+        $scope.data = data.info;
+        len = $scope.data.length;  
+        
+      });
+      
+});
+
+
+                                      
