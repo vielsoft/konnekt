@@ -1,5 +1,6 @@
 app.config(function($stateProvider,$urlRouterProvider){
     
+    // Add NEW state for NEW entry: Fix cant done other way
     
     $stateProvider
     .state('home',{
@@ -26,7 +27,7 @@ app.config(function($stateProvider,$urlRouterProvider){
         templateUrl: 'templates/lemon.html',
         controller:'templateCtrl'
     })
-    
+ 
     $urlRouterProvider.otherwise('/home');
     
 });

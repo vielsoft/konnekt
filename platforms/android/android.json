@@ -43,6 +43,10 @@
                         {
                             "xml": "<feature name=\"Toast\"><param name=\"android-package\" value=\"nl.xservices.plugins.Toast\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"AutoStart\"><param name=\"android-package\" value=\"com.tonikorin.cordova.plugin.autostart.AutoStart\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -89,12 +93,24 @@
                         {
                             "xml": "<service android:enabled=\"true\" android:name=\"org.altbeacon.beacon.BeaconIntentProcessor\"><meta-data android:name=\"background\" android:value=\"true\" /><intent-filter android:priority=\"1\"><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_RANGING\" /><action android:name=\"com.unarin.cordova.beacon.IBeaconPlugin.DID_MONITORING\" /></intent-filter></service>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:enabled=\"false\" android:name=\"com.tonikorin.cordova.plugin.autostart.BootCompletedReceiver\"><intent-filter><action android:name=\"android.intent.action.BOOT_COMPLETED\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:enabled=\"false\" android:name=\"com.tonikorin.cordova.plugin.autostart.UserPresentReceiver\"><intent-filter><action android:name=\"android.intent.action.USER_PRESENT\" /></intent-filter></receiver>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<receiver android:enabled=\"true\" android:name=\"com.tonikorin.cordova.plugin.autostart.PackageReplacedReceiver\"><intent-filter><action android:name=\"android.intent.action.MY_PACKAGE_REPLACED\" /></intent-filter></receiver>",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
                         {
                             "xml": "<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\" />",
-                            "count": 1
+                            "count": 2
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\" />",
@@ -153,6 +169,9 @@
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         },
         "cordova-plugin-x-toast": {
+            "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "cordova-plugin-autostart": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         }
     },
@@ -271,6 +290,13 @@
         {
             "file": "plugins/cordova-plugin-x-toast/test/tests.js",
             "id": "cordova-plugin-x-toast.tests"
+        },
+        {
+            "file": "plugins/cordova-plugin-autostart/www/auto-start.js",
+            "id": "cordova-plugin-autostart.AutoStart",
+            "clobbers": [
+                "cordova.plugins.autoStart"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -284,6 +310,7 @@
         "ionic-plugin-keyboard": "2.2.1",
         "com.unarin.cordova.beacon": "3.4.1",
         "cordova-plugin-inappbrowser": "1.4.1-dev",
-        "cordova-plugin-x-toast": "2.5.2"
+        "cordova-plugin-x-toast": "2.5.2",
+        "cordova-plugin-autostart": "2.0.1"
     }
 }

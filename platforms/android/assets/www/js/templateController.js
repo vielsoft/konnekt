@@ -1,5 +1,5 @@
-app.controller('templateCtrl',function($window,$scope){
-    
+app.controller('templateCtrl',function($window,$scope,$http){
+
     
     $scope.eastwestUrl = function(){
         $window.open("https://www.eastwestbanker.com/","_blank","location=yes");
@@ -13,4 +13,7 @@ app.controller('templateCtrl',function($window,$scope){
         $window.open("https://www.robinsonsmovieworld.com/","_blank","location=yes");
     };
     
+  
+
+
 });

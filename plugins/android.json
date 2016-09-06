@@ -36,6 +36,9 @@
         },
         "cordova-plugin-x-toast": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "cordova-plugin-autostart": {
+            "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         }
     },
     "dependent_plugins": {

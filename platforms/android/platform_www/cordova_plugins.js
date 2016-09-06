@@ -113,6 +113,13 @@ module.exports = [
     {
         "file": "plugins/cordova-plugin-x-toast/test/tests.js",
         "id": "cordova-plugin-x-toast.tests"
+    },
+    {
+        "file": "plugins/cordova-plugin-autostart/www/auto-start.js",
+        "id": "cordova-plugin-autostart.AutoStart",
+        "clobbers": [
+            "cordova.plugins.autoStart"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -128,7 +135,8 @@ module.exports.metadata =
     "ionic-plugin-keyboard": "2.2.1",
     "com.unarin.cordova.beacon": "3.4.1",
     "cordova-plugin-inappbrowser": "1.4.1-dev",
-    "cordova-plugin-x-toast": "2.5.2"
+    "cordova-plugin-x-toast": "2.5.2",
+    "cordova-plugin-autostart": "2.0.1"
 };
 // BOTTOM OF METADATA
 });

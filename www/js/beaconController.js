@@ -1,21 +1,19 @@
 app.controller('ibeaconNotifyCtrl',function(
-                                            $window,
+                                            $http,
                                             disableBack,
                                             $scope,
-                                            $cordovaLocalNotification,
                                             $ionicPlatform,
                                             $cordovaBeacon,
                                             $rootScope,
                                             $state,
                                             $cordovaToast,
                                             $ionicHistory,
-                                            $http,
+                                            $cordovaLocalNotification,
                                             $ionicSideMenuDelegate){
+
+
+
                                               
-                                              
-
-
-
     $scope.rangebeacons = []; //Hold BEACONS in RANGE
     
     //DISABLE and ENABLE BT in application
@@ -45,9 +43,6 @@ app.controller('ibeaconNotifyCtrl',function(
     }
     
 
-
-    
-
     //************** data.json Service *******************
       var len;                                  
       $scope.data =[];                                         
@@ -57,8 +52,7 @@ app.controller('ibeaconNotifyCtrl',function(
       });
     //************** data.json Service *******************
 
-    
-    
+ 
     $ionicPlatform.ready(function(){     
       
      //Detect if BT HARDWARE is enabled 
@@ -99,13 +93,16 @@ app.controller('ibeaconNotifyCtrl',function(
             
           }
           
-
+ 
           var i;
           for(i = 0; i < len; i++){
               //Filter the MINOR and MAJOR values
               if(majorBeacons == $scope.data[i].major && minorBeacons == $scope.data[i].minor ){
                 
-                // code where to throw the call notifications for candy    
+                //Beacon logs in range
+                console.log($scope.data[i].state+" beacons is in range . . ."); 
+                
+                //Blocks that throw notifications   
                 $cordovaLocalNotification.schedule({
                   
                   id: $scope.data[i].id,
@@ -115,12 +112,16 @@ app.controller('ibeaconNotifyCtrl',function(
                   smallIcon:"res://icon"
                 
                 });
+                
+                //Routing beacons Ads.
                 $state.go($scope.data[i].state);
               }
               else{
                 console.log('No beacons is in range . . .');          
               }
           }
+       
+         
           $scope.$apply();
       });
       

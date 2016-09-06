@@ -89,5 +89,13 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-autostart": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-autostart"
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

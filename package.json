@@ -36,7 +36,9 @@
     {
       "locator": "https://github.com/EddyVerbruggen/Toast-PhoneGap-Plugin.git",
       "id": "cordova-plugin-x-toast"
-    }
+    },
+    "cordova-plugin-autostart@2.0.1",
+    "cordova-plugin-autostart"
   ],
   "cordovaPlatforms": [
     "android"

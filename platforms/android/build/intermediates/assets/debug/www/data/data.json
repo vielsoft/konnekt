@@ -1,14 +1,17 @@
 {   
    "info":[
         {
-            "major":"25692",
-            "minor":"33803",
-            "id":"001",
-            "title":"Robinsons Movieworld",
-            "text":"Check now showing movie today!!!",
-            "icons":"res://icon.png",
-            "state":"candy",
-            "url":"https://www.robinsonsmovieworld.com/"
+            "major": "25692",
+            "minor": "33803",
+            "id": "001",
+            "title": "Robinsons Movieworld",
+            "text": "Check now showing movie today!!!",
+            "icons": "res://icon.png",
+            "state": "candy",
+            "url": "/candy",
+            "template": "templates/candy.html",
+            "controller": "templateCtrl",
+            "link":"https://www.robinsonsmovieworld.com/"
        },
        {
             "major":"51669",
@@ -18,7 +21,10 @@
             "text":"Need bank account?",
             "icons":"res://icon.png",
             "state":"lemon",
-            "url":"https://www.eastwestbanker.com/"
+            "url": "/lemon",
+            "template": "templates/lemon.html",
+            "controller": "templateCtrl",
+            "link":"https://www.eastwestbanker.com/"
        },
        {
             "major":"28140",
@@ -28,7 +34,10 @@
             "text":"Are you hungry?",
             "icons":"res://icon.png",
             "state":"beetroot",
-            "url":"http://www.jollibeedelivery.com/?gclid=Cj0KEQjwgJq-BRCFqcLW8_DU9agBEiQAz8Koh1lhouDPHpEPLsU-H8c_ZktRoIU_MqMIgdf9C_-n1h4aAk_z8P8HAQ"
+            "url": "/beetroot",
+            "template": "templates/beetroot.html",
+            "controller": "templateCtrl",
+            "link":"http://www.jollibeedelivery.com/?gclid=Cj0KEQjwgJq-BRCFqcLW8_DU9agBEiQAz8Koh1lhouDPHpEPLsU-H8c_ZktRoIU_MqMIgdf9C_-n1h4aAk_z8P8HAQ"
        }
    ]
  

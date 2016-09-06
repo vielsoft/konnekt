@@ -103,6 +103,28 @@
                 <action android:name="com.unarin.cordova.beacon.IBeaconPlugin.DID_MONITORING" />
             </intent-filter>
         </service>
+
+        <receiver
+            android:name="com.tonikorin.cordova.plugin.autostart.BootCompletedReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.tonikorin.cordova.plugin.autostart.UserPresentReceiver"
+            android:enabled="false" >
+            <intent-filter>
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name="com.tonikorin.cordova.plugin.autostart.PackageReplacedReceiver"
+            android:enabled="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>
