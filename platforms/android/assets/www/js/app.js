@@ -6,7 +6,7 @@
  var app = angular.module('starter', ['ionic','ngCordova']); //,'ngCordovaBeacon'
 
 
-app.run(function($ionicPlatform) {
+app.run(function($ionicPlatform,$cordovaBeacon) {
   
   
   $ionicPlatform.ready(function() {
@@ -24,8 +24,14 @@ app.run(function($ionicPlatform) {
       StatusBar.styleDefault();
     }
     
-    //Enable the app to autstart
+    //Enable the app to autostart
     cordova.plugins.autoStart.enable();
     
+    //Enable autostart Bluetooth
+    $cordovaBeacon.enableBluetooth();
+
+    //Disable autostart Bluetooth
+    //$cordovaBeacon.disableBluetooth();
+      
   });
 });

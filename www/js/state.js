@@ -25,7 +25,7 @@ app.config(function($stateProvider,$urlRouterProvider){
         
         url: '/lemon',
         templateUrl: 'templates/lemon.html',
-        controller:'eastwestUrl'
+        controller:'templateCtrl'
     })
  
     $urlRouterProvider.otherwise('/home');

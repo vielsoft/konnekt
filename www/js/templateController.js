@@ -1,4 +1,4 @@
-app.controller('templateCtrl',function($window,$scope,$http){
+app.controller('templateCtrl',function($window,$scope){
     
     //URL Links for beacons
     

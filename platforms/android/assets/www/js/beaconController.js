@@ -1,8 +1,8 @@
 app.controller('ibeaconNotifyCtrl',function(
                                             $http,
-                                            $window,
                                             disableBack,
                                             $scope,
+                                            $window,
                                             $ionicPlatform,
                                             $cordovaBeacon,
                                             $rootScope,
@@ -14,12 +14,12 @@ app.controller('ibeaconNotifyCtrl',function(
 
 
 
-                                              
-    $scope.rangebeacons = []; //Hold BEACONS in RANGE
+    //Hold BEACONS in RANGE                                
+    $scope.rangebeacons = []; 
     
     //DISABLE and ENABLE BT in application
     $scope.enaBtooth =function(btoothValue){
-        if(btoothValue== true){
+        if(btoothValue == true){
             console.log('Bluetooth is enable in app');
             $cordovaBeacon.enableBluetooth();
         }
@@ -46,13 +46,19 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //************** data.json Service *******************
       var len;                                  
-      $scope.data =[];                                         
+      $scope.data =[];  
+      $scope.notifyData = [];                                       
       $http.get('data/data.json').success(function(data){
-        $scope.data = data.info;
-        len = $scope.data.length;  
+        
+        $scope.data = data.info; //Main Data Process
+        $scope.notifyData = data.info; // Data to be used in holding notification ID
+        len = $scope.data.length;
+          
       });
     //************** data.json Service *******************
 
+ 
+ 
  
     $ionicPlatform.ready(function(){     
       
@@ -103,13 +109,7 @@ app.controller('ibeaconNotifyCtrl',function(
                 //Beacon logs in range
                 console.log($scope.data[i].state+" beacons is in range . . ."); 
                 
-                //URL Linking 
-                var link = $scope.data[i].link;
-                $scope.urlRedirecting = function(){
-                    $window.open(link,"_blank","location=yes");
-                };
-                
-                // code where to throw the call notifications for candy    
+                //Blocks that throw notifications   
                 $cordovaLocalNotification.schedule({
                   
                   id: $scope.data[i].id,
@@ -119,7 +119,31 @@ app.controller('ibeaconNotifyCtrl',function(
                   smallIcon:"res://icon"
                 
                 });
+                
+                //Routing beacons Ads.
                 $state.go($scope.data[i].state);
+                
+                //Notification listen when clicked redirect to corresponding state
+                $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+                  
+                    var i;                  
+                    var len = $scope.notifyData.length;
+                    
+                    for(i = 0; i < len; i++){
+                      
+                      if(notification.id == $scope.notifyData[i].id){
+                        
+                          $state.go($scope.notifyData[i].state);
+                      
+                      }
+                    
+                    }  
+             
+                });
+                
+                
+                
+                
               }
               else{
                 console.log('No beacons is in range . . .');          
