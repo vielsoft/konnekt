@@ -18,7 +18,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.rangebeacons = []; 
     
     //DISABLE and ENABLE BT in application
-    $scope.enaBtooth =function(btoothValue){
+    $scope.enaBtooth = function(btoothValue){
         if(btoothValue == true){
             console.log('Bluetooth is enable in app');
             $cordovaBeacon.enableBluetooth();
@@ -87,6 +87,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
       $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data) {
          
+
           $scope.rangebeacons = data.beacons; 
           var majorBeacons;
           var minorBeacons;

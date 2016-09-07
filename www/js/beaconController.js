@@ -2,6 +2,7 @@ app.controller('ibeaconNotifyCtrl',function(
                                             $http,
                                             disableBack,
                                             $scope,
+                                            $timeout,
                                             $window,
                                             $ionicPlatform,
                                             $cordovaBeacon,
@@ -18,7 +19,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.rangebeacons = []; 
     
     //DISABLE and ENABLE BT in application
-    $scope.enaBtooth =function(btoothValue){
+    $scope.enaBtooth = function(btoothValue){
         if(btoothValue == true){
             console.log('Bluetooth is enable in app');
             $cordovaBeacon.enableBluetooth();
@@ -87,6 +88,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
       $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data) {
          
+  
           $scope.rangebeacons = data.beacons; 
           var majorBeacons;
           var minorBeacons;
@@ -132,9 +134,20 @@ app.controller('ibeaconNotifyCtrl',function(
                     for(i = 0; i < len; i++){
                       
                       if(notification.id == $scope.notifyData[i].id){
-                        
+                          //Corresponding State
                           $state.go($scope.notifyData[i].state);
-                      
+                          
+                          //STOP MONITORING range Beacons PAUSE
+                          $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+                          console.log("STOP ranging beacons");
+                          
+                          $timeout(function(){
+                            
+                              //START MONITORING range Beacons RESUME
+                              $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+                              console.log("START ranging beacons");
+                              
+                          },10000);
                       }
                     
                     }  

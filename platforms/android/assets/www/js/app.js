@@ -21,7 +21,7 @@ app.run(function($ionicPlatform,$cordovaBeacon) {
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
-      StatusBar.styleDefault();
+      StatusBar.show();
     }
     
     //Enable the app to autostart
@@ -31,7 +31,11 @@ app.run(function($ionicPlatform,$cordovaBeacon) {
     $cordovaBeacon.enableBluetooth();
 
     //Disable autostart Bluetooth
-    //$cordovaBeacon.disableBluetooth();
-      
+    $cordovaBeacon.disableBluetooth();
+    
   });
+  
+
+
+      
 });
