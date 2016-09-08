@@ -1,6 +1,5 @@
 app.controller('ibeaconNotifyCtrl',function(
                                             $http,
-                                            disableBack,
                                             $scope,
                                             $timeout,
                                             $window,
@@ -35,14 +34,6 @@ app.controller('ibeaconNotifyCtrl',function(
       $ionicSideMenuDelegate.toggleLeft()
     };
     
-    //Handle the miss ads FORWARD and BACKWARD
-    $scope.goBackward = function(){
-      $window.history.back();
-    };
-    
-    $scope.goForward = function(){
-      $window.history.forward();
-    }
     
 
     //************** data.json Service *******************
@@ -109,7 +100,7 @@ app.controller('ibeaconNotifyCtrl',function(
               if(majorBeacons == $scope.data[i].major && minorBeacons == $scope.data[i].minor ){
                 
                 //Beacon logs in range
-                console.log($scope.data[i].state+" beacons is in range . . ."); 
+                console.log($scope.data[i].title+" is in range . . ."); 
                 
                 //Blocks that throw notifications   
                 $cordovaLocalNotification.schedule({
@@ -122,8 +113,17 @@ app.controller('ibeaconNotifyCtrl',function(
                 
                 });
                 
-                //Routing beacons Ads.
-                $state.go($scope.data[i].state);
+                //POSTING beacons advertisements in main page
+                $scope.adsPost = $scope.data[i].content;
+                $scope.redirLink = $scope.data[i].url;
+                
+                //REDIRECT Url Links from main page
+                $scope.urlRedirect = function(){
+                  $window.open($scope.redirLink,"_blank","location=yes");
+                  console.log("Click link: "+$scope.redirLink);
+                };
+                
+                
                 
                 //Notification listen when clicked redirect to corresponding state
                 $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
@@ -134,8 +134,18 @@ app.controller('ibeaconNotifyCtrl',function(
                     for(i = 0; i < len; i++){
                       
                       if(notification.id == $scope.notifyData[i].id){
-                          //Corresponding State
-                          $state.go($scope.notifyData[i].state);
+                        
+                          //POSTING beacons advertisements in main page when click from notification panel
+                          $scope.adsPost = $scope.notifyData[i].content;
+                          $scope.redirLinkNotif = $scope.notifyData[i].url;
+                          
+                          //REDIRECT Url Links from Notication
+                          $scope.urlRedirect = function(){
+                            $window.open($scope.redirLinkNotif,"_blank","location=yes");
+                            console.log("Click link: "+$scope.redirLink);
+                          };
+                
+                     
                           
                           //STOP MONITORING range Beacons PAUSE
                           $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
