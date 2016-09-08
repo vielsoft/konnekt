@@ -120,6 +120,14 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.autoStart"
         ]
+    },
+    {
+        "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+        "id": "cordova-plugin-background-mode.BackgroundMode",
+        "clobbers": [
+            "cordova.plugins.backgroundMode",
+            "plugin.backgroundMode"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -136,7 +144,8 @@ module.exports.metadata =
     "com.unarin.cordova.beacon": "3.4.1",
     "cordova-plugin-inappbrowser": "1.4.1-dev",
     "cordova-plugin-x-toast": "2.5.2",
-    "cordova-plugin-autostart": "2.0.1"
+    "cordova-plugin-autostart": "2.0.1",
+    "cordova-plugin-background-mode": "0.6.6-dev"
 };
 // BOTTOM OF METADATA
 });

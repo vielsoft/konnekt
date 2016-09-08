@@ -47,6 +47,14 @@
                         {
                             "xml": "<feature name=\"AutoStart\"><param name=\"android-package\" value=\"com.tonikorin.cordova.plugin.autostart.AutoStart\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"BackgroundMode\"><param name=\"android-package\" value=\"de.appplant.cordova.plugin.background.BackgroundMode\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"KeepRunning\" value=\"true\" />",
+                            "count": 1
                         }
                     ]
                 }
@@ -105,6 +113,10 @@
                         {
                             "xml": "<receiver android:enabled=\"true\" android:name=\"com.tonikorin.cordova.plugin.autostart.PackageReplacedReceiver\"><intent-filter><action android:name=\"android.intent.action.MY_PACKAGE_REPLACED\" /></intent-filter></receiver>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<service android:name=\"de.appplant.cordova.plugin.background.ForegroundService\" />",
+                            "count": 1
                         }
                     ],
                     "/manifest": [
@@ -130,6 +142,10 @@
                         },
                         {
                             "xml": "<uses-permission android:name=\"android.permission.ACCESS_COARSE_LOCATION\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<uses-permission android:name=\"android.permission.WAKE_LOCK\" />",
                             "count": 1
                         }
                     ]
@@ -172,6 +188,9 @@
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         },
         "cordova-plugin-autostart": {
+            "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         }
     },
@@ -297,6 +316,14 @@
             "clobbers": [
                 "cordova.plugins.autoStart"
             ]
+        },
+        {
+            "file": "plugins/cordova-plugin-background-mode/www/background-mode.js",
+            "id": "cordova-plugin-background-mode.BackgroundMode",
+            "clobbers": [
+                "cordova.plugins.backgroundMode",
+                "plugin.backgroundMode"
+            ]
         }
     ],
     "plugin_metadata": {
@@ -311,6 +338,7 @@
         "com.unarin.cordova.beacon": "3.4.1",
         "cordova-plugin-inappbrowser": "1.4.1-dev",
         "cordova-plugin-x-toast": "2.5.2",
-        "cordova-plugin-autostart": "2.0.1"
+        "cordova-plugin-autostart": "2.0.1",
+        "cordova-plugin-background-mode": "0.6.6-dev"
     }
 }

@@ -135,14 +135,7 @@
                     "endOffset": 114
                 },
                 "from": {
-                    "file": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/values/strings.xml",
-                    "position": {
-                        "startLine": 4,
-                        "startColumn": 4,
-                        "startOffset": 169,
-                        "endColumn": 63,
-                        "endOffset": 228
-                    }
+                    "file": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/values/strings.xml"
                 }
             },
             {
@@ -150,8 +143,8 @@
                     "startLine": 3,
                     "startColumn": 4,
                     "startOffset": 119,
-                    "endColumn": 54,
-                    "endOffset": 169
+                    "endColumn": 44,
+                    "endOffset": 159
                 },
                 "from": {
                     "file": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/values/strings.xml",
@@ -159,8 +152,8 @@
                         "startLine": 2,
                         "startColumn": 4,
                         "startOffset": 55,
-                        "endColumn": 54,
-                        "endOffset": 105
+                        "endColumn": 44,
+                        "endOffset": 95
                     }
                 }
             },
@@ -168,19 +161,12 @@
                 "to": {
                     "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 174,
+                    "startOffset": 164,
                     "endColumn": 58,
-                    "endOffset": 228
+                    "endOffset": 218
                 },
                 "from": {
-                    "file": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/values/strings.xml",
-                    "position": {
-                        "startLine": 3,
-                        "startColumn": 4,
-                        "startOffset": 110,
-                        "endColumn": 58,
-                        "endOffset": 164
-                    }
+                    "file": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/values/strings.xml"
                 }
             }
         ]

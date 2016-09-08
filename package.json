@@ -38,7 +38,11 @@
       "id": "cordova-plugin-x-toast"
     },
     "cordova-plugin-autostart@2.0.1",
-    "cordova-plugin-autostart"
+    "cordova-plugin-autostart",
+    {
+      "locator": "https://github.com/michaeljymsgutierrez/cordova-plugin-background-mode",
+      "id": "cordova-plugin-background-mode"
+    }
   ],
   "cordovaPlatforms": [
     "android"
