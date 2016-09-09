@@ -14,20 +14,12 @@ app.controller('ibeaconNotifyCtrl',function(
 
 
 
-    //Hold BEACONS in RANGE                                
+    //Hold BEACONS in RANGE                           
     $scope.rangebeacons = []; 
     
-    //DISABLE and ENABLE BT in application
-    $scope.enaBtooth = function(btoothValue){
-        if(btoothValue == true){
-            console.log('Bluetooth is enable in app');
-            $cordovaBeacon.enableBluetooth();
-        }
-        else{
-            console.log('Bluetooth is disable in app');
-            $cordovaBeacon.disableBluetooth();
-        }
-    };
+    //Hold BEACONS to be DISPLAY
+    $scope.displayBeacons = [];
+    
     
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
@@ -54,44 +46,54 @@ app.controller('ibeaconNotifyCtrl',function(
  
     $ionicPlatform.ready(function(){     
       
-     //Detect if BT HARDWARE is enabled 
-      $cordovaBeacon.isBluetoothEnabled().then(function(state){
-        if(state == true){
-              console.log('Bluetooth is enabled . . .');
-              $cordovaToast.show("Bluetooth is enabled","short","center");
-        }
-        else{
-              console.log('Bluetooth is disabled . . . ');
-              $cordovaToast.show("Please enable bluetooth on your settings","long","center");
-        }
-      });
-      
+
+     $timeout(function(){
+       
+          //Detect if BT HARDWARE is enabled 
+          $cordovaBeacon.isBluetoothEnabled().then(function(state){
+            if(state == true){
+                  console.log('Bluetooth is enabled . . .');
+                  $cordovaToast.show("Bluetooth is enabled","short","center");
+            }
+            else{
+                  console.log('Bluetooth is disabled . . . ');
+                  $cordovaToast.show("Please enable bluetooth on your settings","long","center");
+            }
+          });
+
+     },5000);
+
       
       
       //Block for ranging and advertising beacons in region
       var ibeaconIdentifier = 'iBeacon';
       var ibeaconUuid = 'b9407f30-f5f8-466e-aff9-25556b57fe6d';
 
+      //For IOS Security
       $cordovaBeacon.requestWhenInUseAuthorization();
       
+      //MONITORING Regions
       $cordovaBeacon.startMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-
-
+      
+      //RANGING Beacons
+      $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+    
       $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data) {
          
-  
-          $scope.rangebeacons = data.beacons; 
+          
+          $scope.rangebeacons = data.beacons; //HOLD beacons in RANGE
           var majorBeacons;
           var minorBeacons;
           
-          
+         
           // Handle null values to be passed in temporary major  and minor value of beacons
           try{
                majorBeacons = $scope.rangebeacons[0].major;
                minorBeacons = $scope.rangebeacons[0].minor;
           }catch(err){
-            
+               console.log("major and minor is empty . . .");
           }
+          
           
  
           var i;
@@ -138,6 +140,7 @@ app.controller('ibeaconNotifyCtrl',function(
                           //POSTING beacons advertisements in main page when click from notification panel
                           $scope.adsPost = $scope.notifyData[i].content;
                           $scope.redirLinkNotif = $scope.notifyData[i].url;
+                         
                           
                           //REDIRECT Url Links from Notication
                           $scope.urlRedirect = function(){
@@ -172,13 +175,12 @@ app.controller('ibeaconNotifyCtrl',function(
                 console.log('No beacons is in range . . .');          
               }
           }
-       
-         
+
+           
           $scope.$apply();
       });
       
-      $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-    
+
 
     });
 

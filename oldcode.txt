@@ -1,55 +1,21 @@
-        
-          // Filter values of major and minor to be thrown in notifications
-          if(majorBeacons == 25692 && minorBeacons == 33803 ){
-            
-            // code where to throw the call notifications for candy  
-            console.log('Candy is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '001',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Candy",
-              icon: 'res://icon.png'
-            
-            });
-           
-            $state.go('candy');
-            
-          
-          }
-          else if(majorBeacons == 51669 && minorBeacons == 32724 ){
-              
-            // code where to throw the call notifications for lemon  
-            console.log('Lemon is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '002',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Lemon",
-              icon: 'res://icon.png'
-            
-            });
-
-            $state.go('lemon');
-            
-          }
-          else if(majorBeacons == 28140 && minorBeacons == 15530 ){
-            
-            // code where to throw the call notifications for beetroot 
-            console.log('Beetroot is in range . . . ');    
-            $cordovaLocalNotification.schedule({
-              
-              id: '003',
-              title: 'iBeacon notify',
-              text: "Hi, I'm Beetroot",
-              icon: 'res://icon.png'
-            
-            });
-            
-            $state.go('beetroot');
-          
-          }
-          else{
-            
-            console.log('No beacons is in range . . .');          
+          //Block for Displaying Beacon Names in SideMenu
+          var i;
+          var len = $scope.rangebeacons.length;
+          for(i = 0; i < len; i++){
+                if($scope.rangebeacons[i].major != null && $scope.rangebeacons[i].minor != null){
+                    var displayMajor = $scope.rangebeacons[i].major; //Temp Major 
+                    var displayMinor = $scope.rangebeacons[i].minor; //Temo Minor
+                    //COMPARE rangeBeacons to API data
+                    if(displayMajor == $scope.data[i].major && displayMinor == $scope.data[i].minor){
+                      //STORE API data.title and data.url                      
+                      $scope.tempData = {
+                                          "title":$scope.data[i].title,
+                                          "link": $scope.data[i].url
+                                         };
+                      //PUSH DATA to new array to display
+                      $scope.displayBeacons.push($scope.tempData);
+                      console.log($scope.displayBeacons.title);
+                    }
+                    
+                }
           }
