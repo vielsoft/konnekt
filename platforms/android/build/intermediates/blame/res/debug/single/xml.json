@@ -10,5 +10,9 @@
     {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/build/intermediates/res/merged/debug/xml/config.xml",
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-ibeacon-Prototype/platforms/android/res/xml/config.xml"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/res/merged/debug/xml/config.xml",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/res/xml/config.xml"
     }
 ]

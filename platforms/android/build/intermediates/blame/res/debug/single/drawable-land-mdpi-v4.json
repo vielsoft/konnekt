@@ -8,6 +8,10 @@
         "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-land-mdpi/screen.png"
     },
     {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/res/merged/debug/drawable-land-mdpi-v4/screen.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/res/drawable-land-mdpi/screen.png"
+    },
+    {
         "merged": "/home/vielsoft-dev-6/Desktop/IONIC-Local-Notification/platforms/android/build/intermediates/res/merged/debug/drawable-land-mdpi-v4/screen.png",
         "source": "/home/vielsoft-dev-6/Desktop/IONIC-Local-Notification/platforms/android/res/drawable-land-mdpi/screen.png"
     }

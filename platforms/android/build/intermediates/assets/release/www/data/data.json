@@ -1,0 +1,41 @@
+{   
+   "info":[
+        {
+            "major": "25692",
+            "minor": "33803",
+            "id": "001",
+            "title": "Robinsons Movieworld",
+            "text": "Check now showing movie today!!!",
+            "icons": "https://lh4.ggpht.com/tekU24D3DY41zyK7oUktbpAAuHKCV46znAgCTwFqz4i4lHLO7GnMtoWUdkZ0XHfEZNU=w300",
+            "content": "https://pbs.twimg.com/profile_images/524404349040992256/fFtl21Fu.jpeg",
+            "template": "templates/candy.html",
+            "controller": "templateCtrl",
+            "url":"https://www.robinsonsmovieworld.com/"
+       },
+       {
+            "major":"51669",
+            "minor":"32724",
+            "id":"002",
+            "title":"Eastwest Bank",
+            "text":"Need bank account?",
+            "icons":"https://www.eastwestbanker.com/img/ver3/ew_logo.jpg",
+            "content":"https://pbs.twimg.com/profile_images/652001650316447744/Tuk8ahHL.png",
+            "template": "templates/lemon.html",
+            "controller": "templateCtrl",
+            "url":"https://www.eastwestbanker.com/"
+       },
+       {
+            "major":"28140",
+            "minor":"15530",
+            "id":"003",
+            "title":"Jollibee",
+            "text":"Are you hungry?",
+            "icons":"https://pbs.twimg.com/profile_images/471863852959674369/jUDJnZcR_400x400.png",
+            "content":"https://pbs.twimg.com/profile_images/471863852959674369/jUDJnZcR_400x400.png",
+            "template": "templates/beetroot.html",
+            "controller": "templateCtrl",
+            "url":"http://www.jollibeedelivery.com/?gclid=Cj0KEQjwgJq-BRCFqcLW8_DU9agBEiQAz8Koh1lhouDPHpEPLsU-H8c_ZktRoIU_MqMIgdf9C_-n1h4aAk_z8P8HAQ"
+       }
+   ]
+ 
+}

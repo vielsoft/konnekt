@@ -1,14 +1,17 @@
-app.config(function($stateProvider,$urlRouterProvider){
-    
-    // Add NEW state for NEW entry: Fix cant done in other way
-    
+app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
+  
     $stateProvider
     .state('home',{
-        
+
+        cache: false,
         url: '/home',
         templateUrl: 'templates/home.html',
         controller:'ibeaconNotifyCtrl'
-    })
+
+    });
+    //Default State
     $urlRouterProvider.otherwise('/home');
-    
+
+    // Delete CACHE globally
+    $ionicConfigProvider.views.maxCache(0);
 });
