@@ -1,1 +1,1 @@
-# IONIC-ibeacon-Prototype
+# Konnekt

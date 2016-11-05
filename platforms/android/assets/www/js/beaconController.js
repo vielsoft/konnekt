@@ -21,6 +21,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Hold BEACONS to be DISPLAY
     $scope.displaybeacons = [];
+    $scope.tempbeacons = [];
 
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
@@ -80,9 +81,13 @@ app.controller('ibeaconNotifyCtrl',function(
               //API Request
               $http.get('http://192.168.10.154:3000/api/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
                   $scope.beaconData = response.data[0];
-                  //console.log($scope.beaconData);
+                  //$scope.displaybeacons.push($scope.beaconData);
+
+                  $scope.displaybeacons.push($scope.beaconData);
+
+
               },function(err){
-                  //console.log(err.data);
+                  console.log(err.data); //Erorr Logs
               });
 
               if($scope.beaconData != null){
@@ -140,7 +145,7 @@ app.controller('ibeaconNotifyCtrl',function(
                       },10000);
 
                   },function(err){
-                      console.log(err.data);
+                      console.log(err.data); //Erorr Logs
                   });
 
               });

@@ -72,9 +72,10 @@
           <!--Beacon Status-->
           <ion-scroll zooming="true" direction="y" style="width: 500px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
-                <a class="item item-icon-left" href="#" ng-repeat='rangebeacons in rangebeacons'>
+                <a class="item item-icon-left" href="#" ng-repeat='display in displaybeacons'>
                     <i class="icon ion-radio-waves"></i>
                     <!--  iBeacon {{rangebeacons.length}} -->
+                    {{ display.title }}
                     <span class="item-note"><!--
                                 {{"major: " + rangebeacons.major}} </br>
                                 {{"minor: " + rangebeacons.minor}} </br>-->
