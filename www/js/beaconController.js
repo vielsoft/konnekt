@@ -20,8 +20,8 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.rangebeacons = [];
 
     //Hold BEACONS to be DISPLAY
-    $scope.displaybeacons = [];
-    $scope.tempbeacons = [];
+    $scope.beaconsName = []; //Dummy Checker
+    $scope.displaybeacons = []; //Main Display Beacons
 
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
@@ -80,11 +80,31 @@ app.controller('ibeaconNotifyCtrl',function(
           if(majorBeacons !=null && minorBeacons != null){
               //API Request
               $http.get('http://192.168.10.154:3000/api/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
+                  //Main BLOCK for Display Beacons in Sidebar
                   $scope.beaconData = response.data[0];
-                  //$scope.displaybeacons.push($scope.beaconData);
-
-                  $scope.displaybeacons.push($scope.beaconData);
-
+                  var check; //Check if exist
+                  var toPush = $scope.beaconData.title; //Dummy for checking
+                  var urlText = {
+                        text: $scope.beaconData.text,
+                        url: $scope.beaconData.url,
+                        content: $scope.beaconData.content
+                  };
+                  if($scope.beaconsName.length == 0){
+                      $scope.beaconsName.push(toPush);
+                      urlText.title = $scope.beaconData.title;
+                      $scope.displaybeacons.push(urlText);
+                  }
+                  else{
+                      var len = $scope.beaconsName.length;
+                      for(var x = 0; x <= len; x++){
+                        check = $scope.beaconsName.indexOf($scope.beaconData.title);
+                        if(check == -1){
+                          $scope.beaconsName.push(toPush);
+                          urlText.title = $scope.beaconData.title;
+                          $scope.displaybeacons.push(urlText);
+                        }
+                      }
+                  }
 
               },function(err){
                   console.log(err.data); //Erorr Logs
