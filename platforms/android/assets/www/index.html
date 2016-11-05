@@ -74,14 +74,11 @@
             <div class="list" ng-show="showBeaconStatus">
                 <a class="item item-icon-left" href="#" ng-repeat='display in displaybeacons'>
                     <i class="icon ion-radio-waves"></i>
-                    <!--  iBeacon {{rangebeacons.length}} -->
-                    {{ display.title }}
-                    <span class="item-note"><!--
-                                {{"major: " + rangebeacons.major}} </br>
-                                {{"minor: " + rangebeacons.minor}} </br>-->
+                      {{ display.title }}
+                    <br>
+                    <span style="font-size:1px">
+                      {{ display.text }}
                     </span>
-                    <br><!--
-                    {{"UUID: " + rangebeacons.uuid}}-->
                </a>
             </div>
         </ion-scroll>
