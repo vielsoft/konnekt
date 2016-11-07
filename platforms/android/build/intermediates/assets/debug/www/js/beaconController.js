@@ -14,14 +14,14 @@ app.controller('ibeaconNotifyCtrl',function(
 
 
     //Initial Image on load
-    $scope.adsPost = "img/home.png";
+    $scope.adsPost = "img/giphy.gif";
 
     //Hold BEACONS in RANGE
     $scope.rangebeacons = [];
 
     //Hold BEACONS to be DISPLAY
-    $scope.beaconsName = []; //Dummy Checker
-    $scope.displaybeacons = []; //Main Display Beacons
+    $scope.beaconsName = [];
+    $scope.displaybeacons = [];
 
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
@@ -77,10 +77,10 @@ app.controller('ibeaconNotifyCtrl',function(
           }
 
 
-          if(majorBeacons !=null && minorBeacons != null){
-              //API Request
+          if(majorBeacons != null && minorBeacons != null){
+              //API REQUEST
               $http.get('http://192.168.10.154:3000/api/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
-                  //Main BLOCK for Display Beacons in Sidebar
+
                   $scope.beaconData = response.data[0];
                   var check; //Check if exist
                   var toPush = $scope.beaconData.title; //Dummy for checking
@@ -108,6 +108,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
               },function(err){
                   console.log(err.data); //Erorr Logs
+                  $cordovaToast.show("Unable to connect server . . . ","long","center");
               });
 
               if($scope.beaconData != null){
@@ -169,6 +170,16 @@ app.controller('ibeaconNotifyCtrl',function(
                   });
 
               });
+
+              //STOP MONITORING range Beacons PAUSE
+              $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+              console.log("STOP ranging beacons");
+
+              $timeout(function(){
+                  //START MONITORING range Beacons RESUME
+                  $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+                  console.log("START ranging beacons");
+              },10000)
 
           }
           $scope.$apply();

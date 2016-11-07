@@ -1,10 +1,9 @@
-if($scope.displaybeacons.length == 0){
-    $scope.displaybeacons.push($scope.beaconData);
-}
-else{
-    var len = $scope.displaybeacons.length;
-      check = $scope.displaybeacons.indexOf($scope.beaconData);
-      if(check == -1){
-        $scope.displaybeacons.push($scope.beaconData);
-      }
-}
+//STOP MONITORING range Beacons PAUSE
+$cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+console.log("STOP ranging beacons");
+
+$timeout(function(){
+    //START MONITORING range Beacons RESUME
+    $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+    console.log("START ranging beacons");
+},10000)
