@@ -28,6 +28,15 @@ app.controller('ibeaconNotifyCtrl',function(
       $ionicSideMenuDelegate.toggleLeft()
     };
 
+    //Refresh Floating Menu
+    $scope.refreshFloatingMenu = function(){
+      //Initial Image on load is fired when Refreshed
+      $scope.adsPost = "img/giphy.gif";
+      $scope.urlRedirect = function(){
+          //Needs to be empty to satisfy the null link of refreshed page
+      };
+    };
+
     $ionicPlatform.ready(function(){
 
      // TIMEOUT toast
@@ -82,8 +91,8 @@ app.controller('ibeaconNotifyCtrl',function(
               $http.get('http://192.168.10.154:3000/api/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
 
                   $scope.beaconData = response.data[0];
-                  var check; //Check if exist
-                  var toPush = $scope.beaconData.title; //Dummy for checking
+                  var check; //Check if Exist
+                  var toPush = $scope.beaconData.title; //Dummy for Checking
                   var urlText = {
                         text: $scope.beaconData.text,
                         url: $scope.beaconData.url,
