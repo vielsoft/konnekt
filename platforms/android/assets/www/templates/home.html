@@ -1,8 +1,12 @@
 <ion-view>
+      <!--Main Floating Menu-->
+      <ion-floating-menu menu-color="#4c4c4c" menu-open-color="#4c4c4c" backdrop="true">
+          <ion-floating-item text="Refresh" button-color="#4c4c4c" icon="ion-refresh" click="refreshFloatingMenu()"></ion-floating-item>
+          <ion-floating-item text="Profile " button-color="#4c4c4c" icon="ion-android-person" click="myEvent()"></ion-floating-item>
+      </ion-floating-menu menu-color="#4c4c4c">
+
       <!--Flash banner/image/poster ads-->
       <ion-content class="has-header" scroll="false">
             <img class="ads-Image" ng-src="{{adsPost}}" ng-click="urlRedirect()"></img>
       </ion-content>
 </ion-view>
-
-            
