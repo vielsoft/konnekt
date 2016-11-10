@@ -1,5 +1,5 @@
 app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
-  
+
     $stateProvider
     .state('home',{
 
@@ -11,7 +11,7 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
     });
     //Default State
     $urlRouterProvider.otherwise('/home');
-
+    
     // Delete CACHE globally
     $ionicConfigProvider.views.maxCache(0);
 });

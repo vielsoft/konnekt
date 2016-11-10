@@ -1,16 +1,17 @@
 app.controller('ibeaconNotifyCtrl',function(
-                                            $http,
-                                            $scope,
-                                            $timeout,
-                                            $window,
-                                            $ionicPlatform,
-                                            $cordovaBeacon,
-                                            $rootScope,
-                                            $state,
-                                            $cordovaToast,
-                                            $ionicHistory,
-                                            $cordovaLocalNotification,
-                                            $ionicSideMenuDelegate){
+    $state,
+    $http,
+    $scope,
+    $timeout,
+    $window,
+    $ionicPlatform,
+    $cordovaBeacon,
+    $rootScope,
+    $state,
+    $cordovaToast,
+    $ionicHistory,
+    $cordovaLocalNotification,
+    $ionicSideMenuDelegate){
 
 
     //Initial Image on load
@@ -26,6 +27,15 @@ app.controller('ibeaconNotifyCtrl',function(
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
       $ionicSideMenuDelegate.toggleLeft()
+    };
+
+    //Trigger advertisements from SIDEMENU
+    $scope.sideMenuAds = function(url,content){
+        // To be fix
+        console.log(url + " *** " + content);
+        $scope.adsPost = content;
+        $scope.redirLink = url;
+        $window.open(url,'_blank','location=yes');
     };
 
     //Refresh Floating Menu

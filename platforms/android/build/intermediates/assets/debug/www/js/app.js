@@ -1,9 +1,4 @@
-// Ionic Starter App
-
-// angular.module is a global place for creating, registering and retrieving Angular modules
-// 'starter' is the name of this angular module example (also set in a <body> attribute in index.html)
-// the 2nd parameter is an array of 'requires'
- var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']); //,'ngCordovaBeacon'
+ var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']);
 
 
 app.run(function($ionicPlatform,$cordovaBeacon) {
@@ -21,8 +16,17 @@ app.run(function($ionicPlatform,$cordovaBeacon) {
       cordova.plugins.Keyboard.disableScroll(true);
     }
     if(window.StatusBar) {
-      StatusBar.show();
+       StatusBar.show();
     }
+
+    $ionicPlatform.registerBackButtonAction(function(e){
+      backAsHome.trigger(function(){
+          console.log("Success Over riding Back as Home . . ");
+      }, function(){
+          console.log("Error Over riding Back as Home . . .");
+      });
+      e.preventDefault();
+    },101);
 
     //Enable the app to autostart
     cordova.plugins.autoStart.enable();

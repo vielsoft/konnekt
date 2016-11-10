@@ -128,6 +128,13 @@ module.exports = [
             "cordova.plugins.backgroundMode",
             "plugin.backgroundMode"
         ]
+    },
+    {
+        "file": "plugins/com.amitsinha.backashome/www/ionicHome.js",
+        "id": "com.amitsinha.backashome.ionicHome",
+        "merges": [
+            "backAsHome"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -145,7 +152,8 @@ module.exports.metadata =
     "cordova-plugin-inappbrowser": "1.4.1-dev",
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-plugin-autostart": "2.0.1",
-    "cordova-plugin-background-mode": "0.6.6-dev"
+    "cordova-plugin-background-mode": "0.6.6-dev",
+    "com.amitsinha.backashome": "0.1.0"
 };
 // BOTTOM OF METADATA
 });

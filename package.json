@@ -42,6 +42,10 @@
     {
       "locator": "https://github.com/michaeljymsgutierrez/cordova-plugin-background-mode",
       "id": "cordova-plugin-background-mode"
+    },
+    {
+      "locator": "https://github.com/amitsinha559/cordova-plugin-back-as-home.git",
+      "id": "com.amitsinha.backashome"
     }
   ],
   "cordovaPlatforms": [

@@ -42,6 +42,9 @@
         },
         "cordova-plugin-background-mode": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "com.amitsinha.backashome": {
+            "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
         }
     },
     "dependent_plugins": {

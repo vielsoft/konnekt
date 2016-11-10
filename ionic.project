@@ -1,6 +1,6 @@
 {
   "name": "IONIC-Local-Notification",
-  "app_id": "",
+  "app_id": "461f6bc2",
   "gulpStartupTasks": [
     "sass",
     "watch"

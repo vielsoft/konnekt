@@ -16,10 +16,10 @@
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
     <script src="cordova.js"></script>
-    <script src="js/ng-cordova-beacon.min.js"></script>
+    <script src="lib/ngCordovaBeacon/ng-cordova-beacon.min.js"></script>
 
     <!--ion floating menu-->
-    <link href="lib/ion-floating-menu/dist/ion-floating-menu.css" rel="stylesheet" type="text/css"/>
+    <link href="lib/ion-floating-menu/dist/ion-floating-menu.css" rel="stylesheet" type="text/css">
     <script src="lib/ion-floating-menu/dist/ion-floating-menu.js" type="text/javascript"></script>
 
     <!-- your app's js -->
@@ -36,8 +36,8 @@
       <!--Contains Header and views-->
       <ion-side-menu-content>
               <!-- Header -->
-              <div class='bar bar-header bar-dark' ng-controller='ibeaconNotifyCtrl'>
-                  <button class="button  icon button-clear ion-navicon-round" ng-click="toggleLeft()" ></button>
+              <div class="bar bar-header bar-dark" ng-controller="ibeaconNotifyCtrl">
+                  <button class="button  icon button-clear ion-navicon-round" ng-click="toggleLeft()"></button>
                   <h1 class="title">Konnekt</h1>
                   <button class="button icon button-clear ion-help-circled"></button>
               </div>
@@ -53,10 +53,10 @@
       </ion-side-menu-content>
 
       <!--Show Menu-->
-      <ion-side-menu side="left">
+      <ion-side-menu side="left" width="290">
           <ion-list>
             <ion-item>
-              <img ng-src="img/estimote.png" style="width:200px;"></img>
+              <img ng-src="img/estimote.png" style="width:200px;">
             </ion-item>
 
             <ion-item>
@@ -72,7 +72,7 @@
           <!--Beacon Status-->
           <ion-scroll zooming="true" direction="y" style="width: 500px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
-                <a class="item item-icon-left" href="#" ng-repeat='display in displaybeacons'>
+                <a class="item item-icon-left" href="#" ng-click="sideMenuAds(display.url,display.content)" ng-repeat="display in displaybeacons">
                     <i class="icon ion-radio-waves"></i>
                       {{ display.title }}
                     <br>
