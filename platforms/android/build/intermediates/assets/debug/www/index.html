@@ -26,7 +26,7 @@
     <script src="js/app.js"></script>
     <script src="js/state.js"></script>
     <script src="js/service.js"></script>
-    <script src="js/beaconController.js"></script>
+    <script src="js/beacon-controller.js"></script>
     <script src="js/templateController.js"></script>
 
     </head>
@@ -42,21 +42,13 @@
                   <button class="button icon button-clear ion-help-circled"></button>
               </div>
               <ion-nav-view></ion-nav-view>
-
-              <!-- Footer
-              <div class='bar bar-footer bar-dark' ng-controller='ibeaconNotifyCtrl'>
-                  <button class="button  icon button-clear ion-arrow-left-b" ng-click="goBackward()"></button>
-                  <h1 class="title">did you missed some ads?</h1>
-                  <button class="button  icon button-clear ion-arrow-right-b" ng-click="goForward()"></button>
-              </div>
-              -->
       </ion-side-menu-content>
 
       <!--Show Menu-->
-      <ion-side-menu side="left" width="290">
+      <ion-side-menu side="left" id="side-menu-size" width="{{ sideMenuWidth }}">
           <ion-list>
             <ion-item>
-              <img ng-src="img/estimote.png" style="width:200px;">
+              <img id="side-header-image" ng-src="img/estimote.png">
             </ion-item>
 
             <ion-item>
@@ -68,7 +60,7 @@
 
 
           <!--Show Scan Advertisements-->
-          <ion-toggle ng-model="showBeaconStatus" toggle-class="toggle-dark">Show scanned Advertisements &nbsp;&nbsp;</ion-toggle>
+          <ion-toggle ng-model="showBeaconStatus" toggle-class="toggle-dark">Show scanned Advertisements &nbsp;&nbsp;&nbsp;</ion-toggle>
           <!--Beacon Status-->
           <ion-scroll zooming="true" direction="y" style="width: 500px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
@@ -76,7 +68,7 @@
                     <i class="icon ion-radio-waves"></i>
                       {{ display.title }}
                     <br>
-                    <span style="font-size:1px">
+                    <span id="side-menu-text">
                       {{ display.text }}
                     </span>
                </a>

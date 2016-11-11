@@ -1,9 +1,7 @@
  var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']);
 
 
-app.run(function($ionicPlatform,$cordovaBeacon) {
-
-
+app.run(function($ionicPlatform,$cordovaBeacon,$window) {
   $ionicPlatform.ready(function() {
     if(window.cordova && window.cordova.plugins.Keyboard) {
       // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
@@ -40,3 +38,6 @@ app.run(function($ionicPlatform,$cordovaBeacon) {
   });
 
 });
+
+
+app.constant('apiUrl','http://192.168.10.154:3000/api');

@@ -1,5 +1,6 @@
 app.controller('ibeaconNotifyCtrl',function(
     $state,
+    apiUrl,
     $http,
     $scope,
     $timeout,
@@ -13,6 +14,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $cordovaLocalNotification,
     $ionicSideMenuDelegate){
 
+    $scope.sideMenuWidth = 300;
 
     //Initial Image on load
     $scope.adsPost = "img/giphy.gif";
@@ -98,7 +100,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
           if(majorBeacons != null && minorBeacons != null){
               //API REQUEST
-              $http.get('http://192.168.10.154:3000/api/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
+              $http.get(apiUrl + '/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
 
                   $scope.beaconData = response.data[0];
                   var check; //Check if Exist
@@ -159,7 +161,7 @@ app.controller('ibeaconNotifyCtrl',function(
               $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
 
                   var notifId = notification.id;
-                  $http.get('http://192.168.10.154:3000/api/device/beacon/'+ notifId).then(function(response){
+                  $http.get(apiUrl + '/device/beacon/'+ notifId).then(function(response){
 
                       $scope.notificationData = response.data[0];
                       console.log($scope.notificationData);
@@ -182,7 +184,7 @@ app.controller('ibeaconNotifyCtrl',function(
                           //START MONITORING range Beacons RESUME
                           $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
                           console.log("START ranging beacons");
-                      },10000);
+                      },60000);
 
                   },function(err){
                       console.log(err.data); //Erorr Logs
@@ -198,7 +200,7 @@ app.controller('ibeaconNotifyCtrl',function(
                   //START MONITORING range Beacons RESUME
                   $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
                   console.log("START ranging beacons");
-              },10000)
+              },11000)
 
           }
           $scope.$apply();

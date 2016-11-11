@@ -3,6 +3,14 @@
     font-weight: bold;
 }
 
+#side-header-image{
+    width: 200px;
+}
+
+#side-menu-text{
+    font-size: 1px;
+}
+
 .ads-Image{
   height: 100%;
   width: 100%;
