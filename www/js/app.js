@@ -19,7 +19,7 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window) {
 
     $ionicPlatform.registerBackButtonAction(function(e){
       backAsHome.trigger(function(){
-          console.log("Success Over riding Back as Home . . ");
+          console.log("Success Over riding Back as Home . . .");
       }, function(){
           console.log("Error Over riding Back as Home . . .");
       });
@@ -38,6 +38,3 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window) {
   });
 
 });
-
-
-app.constant('apiUrl','http://192.168.10.154:3000/api');

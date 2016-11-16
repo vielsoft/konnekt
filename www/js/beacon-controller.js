@@ -8,7 +8,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $ionicPlatform,
     $cordovaBeacon,
     $rootScope,
-    $state,
+    aboutKonnekt,
     $cordovaToast,
     $ionicHistory,
     $cordovaLocalNotification,
@@ -33,8 +33,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Trigger advertisements from SIDEMENU
     $scope.sideMenuAds = function(url,content){
-        // To be fix
-        console.log(url + " *** " + content);
+      console.log(url + " *** " + content);
         $scope.adsPost = content;
         $scope.redirLink = url;
         $window.open(url,'_blank','location=yes');
@@ -49,6 +48,12 @@ app.controller('ibeaconNotifyCtrl',function(
       };
     };
 
+    //About Konnekt
+    $scope.aboutKonnekt = function(){
+        aboutKonnekt.about();
+    };
+
+    /*Beacon Detecttion Process*/
     $ionicPlatform.ready(function(){
 
      // TIMEOUT toast
@@ -65,8 +70,6 @@ app.controller('ibeaconNotifyCtrl',function(
             }
           });
      },5000);
-
-
 
       //Block for ranging and advertising beacons in region
       var ibeaconIdentifier = 'iBeacon';
@@ -151,7 +154,7 @@ app.controller('ibeaconNotifyCtrl',function(
                   //REDIRECT Url Links from main page
                   $scope.urlRedirect = function(){
                     $window.open($scope.redirLink,"_blank","location=yes");
-                    console.log("Click link: "+$scope.redirLink);
+                    console.log("Click link: " + $scope.redirLink);
                   };
 
               }
@@ -161,7 +164,7 @@ app.controller('ibeaconNotifyCtrl',function(
               $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
 
                   var notifId = notification.id;
-                  $http.get(apiUrl + '/device/beacon/'+ notifId).then(function(response){
+                  $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
 
                       $scope.notificationData = response.data[0];
                       console.log($scope.notificationData);
@@ -173,7 +176,7 @@ app.controller('ibeaconNotifyCtrl',function(
                       //REDIRECT Url Links from Notication
                       $scope.urlRedirect = function(){
                         $window.open($scope.redirLinkNotif,"_blank","location=yes");
-                        console.log("Click link: "+$scope.redirLink);
+                        console.log("Click link: " + $scope.redirLink);
                       };
 
                       //STOP MONITORING range Beacons PAUSE
