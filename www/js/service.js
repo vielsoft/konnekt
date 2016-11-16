@@ -12,7 +12,7 @@ app.service('aboutKonnekt',function($ionicPopup){
     this.about = function(){
         $ionicPopup.alert({
             title: 'Konnekt v1.0.0',
-            template: 'About Konnekt Information'
+            template: '<p align="center"><img style="width:50px;height:50px;" src="./img/icon.png"></img></br>About Konnekt Application</p>'
         });
     };
 });

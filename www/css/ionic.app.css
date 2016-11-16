@@ -5557,6 +5557,8 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both; }
   .popup-container.active .popup {
+    background-color: white;
+    /*I add this container of buttons*/
     -webkit-animation-name: superScaleIn;
     animation-name: superScaleIn;
     -webkit-animation-duration: 0.2s;
@@ -5569,7 +5571,8 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     width: 250px;
     max-width: 100%;
     max-height: 90%;
-    border-radius: 0px;
+    border-radius: 18px;
+    /*$popup-border-radius; I add this */
     background-color: rgba(255, 255, 255, 0.9);
     display: -webkit-box;
     display: -webkit-flex;
@@ -5588,13 +5591,17 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     width: 100%; }
 
 .popup-head {
-  background-color: #4c4c4c;
+  border-radius: 15px 15px 0px 0px;
+  /*I add this head corners*/
+  background-color: #444;
+  /*I add this bg color head*/
   padding: 15px 10px;
   border-bottom: 1px solid #eee;
   text-align: center; }
 
 .popup-title {
   color: white;
+  /*I add this bg color*/
   margin: 0;
   padding: 0;
   font-size: 15px; }
@@ -5607,6 +5614,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
 
 .popup-body {
   background-color: white;
+  /*I add this bg color*/
   padding: 10px;
   overflow: auto; }
 
@@ -5624,10 +5632,10 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
   -ms-flex-direction: row;
   flex-direction: row;
   padding: 10px;
-  min-height: 65px;
-  background-color: white; }
+  min-height: 65px; }
   .popup-buttons .button {
     background-color: #666666;
+    /*I add this button color*/
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -moz-box-flex: 1;
@@ -9862,6 +9870,8 @@ a.button {
     -webkit-animation-fill-mode: both;
     animation-fill-mode: both; }
   .popup-container.active .popup {
+    background-color: white;
+    /*I add this container of buttons*/
     -webkit-animation-name: superScaleIn;
     animation-name: superScaleIn;
     -webkit-animation-duration: 0.2s;
@@ -9874,7 +9884,8 @@ a.button {
     width: 250px;
     max-width: 100%;
     max-height: 90%;
-    border-radius: 0px;
+    border-radius: 18px;
+    /*$popup-border-radius; I add this */
     background-color: rgba(255, 255, 255, 0.9);
     display: -webkit-box;
     display: -webkit-flex;
@@ -9893,13 +9904,17 @@ a.button {
     width: 100%; }
 
 .popup-head {
-  background-color: #4c4c4c;
+  border-radius: 15px 15px 0px 0px;
+  /*I add this head corners*/
+  background-color: #444;
+  /*I add this bg color head*/
   padding: 15px 10px;
   border-bottom: 1px solid #eee;
   text-align: center; }
 
 .popup-title {
   color: white;
+  /*I add this bg color*/
   margin: 0;
   padding: 0;
   font-size: 15px; }
@@ -9912,6 +9927,7 @@ a.button {
 
 .popup-body {
   background-color: white;
+  /*I add this bg color*/
   padding: 10px;
   overflow: auto; }
 
@@ -9929,10 +9945,10 @@ a.button {
   -ms-flex-direction: row;
   flex-direction: row;
   padding: 10px;
-  min-height: 65px;
-  background-color: white; }
+  min-height: 65px; }
   .popup-buttons .button {
     background-color: #666666;
+    /*I add this button color*/
     -webkit-box-flex: 1;
     -webkit-flex: 1;
     -moz-box-flex: 1;

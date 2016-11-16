@@ -32,6 +32,7 @@
   }
 
   &.active .popup {
+    background-color: white; /*I add this container of buttons*/
     @include animation-name(superScaleIn);
     @include animation-duration($popup-enter-animation-duration);
     @include animation-timing-function(ease-in-out);
@@ -42,8 +43,7 @@
     width: $popup-width;
     max-width: 100%;
     max-height: 90%;
-
-    border-radius: $popup-border-radius;
+    border-radius: 18px;   /*$popup-border-radius; I add this */
     background-color: $popup-background-color;
 
     @include display-flex();
@@ -57,13 +57,14 @@
 }
 
 .popup-head {
-  background-color: #4c4c4c;
+  border-radius: 15px 15px 0px 0px; /*I add this head corners*/
+  background-color: #444; /*I add this bg color head*/
   padding: 15px 10px;
   border-bottom: 1px solid #eee;
   text-align: center;
 }
 .popup-title {
-  color: white;
+  color: white; /*I add this bg color*/
   margin: 0;
   padding: 0;
   font-size: 15px;
@@ -75,7 +76,7 @@
   font-size: 11px;
 }
 .popup-body {
-  background-color: white;
+  background-color: white; /*I add this bg color*/
   padding: 10px;
   overflow: auto;
 }
@@ -85,15 +86,13 @@
   @include flex-direction(row);
   padding: 10px;
   min-height: $popup-button-min-height + 20;
-  background-color: white;
   .button {
-    background-color: #666666;
+    background-color: #666666; /*I add this button color*/
     @include flex(1);
     display: block;
     min-height: $popup-button-min-height;
     border-radius: $popup-button-border-radius;
     line-height: $popup-button-line-height;
-
     margin-right: 5px;
     &:last-child {
       margin-right: 0px;

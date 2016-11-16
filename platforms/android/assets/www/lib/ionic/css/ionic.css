@@ -5584,6 +5584,7 @@ ion-tabs.tabs-striped.tabs-color-active-dark .tab-item.tab-item-active, ion-tabs
     width: 100%; }
 
 .popup-head {
+  border-radius: 1px 1px;
   padding: 15px 10px;
   border-bottom: 1px solid #eee;
   text-align: center; }
