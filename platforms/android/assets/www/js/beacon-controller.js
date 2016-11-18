@@ -115,6 +115,7 @@ app.controller('ibeaconNotifyCtrl',function(
                   var urlText = {
                         text: $scope.beaconData.text,
                         url: $scope.beaconData.url,
+                        icons: $scope.beaconData.icons,
                         content: $scope.beaconData.content
                   };
                   if($scope.beaconsName.length == 0){

@@ -67,7 +67,7 @@
     <author email="leeez711@gmail.com" href="http://example.com.com/">
       Chael Gutierrez
     </author>
-    <content original-src="index.html" src="http://192.168.10.154:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#4c4c4c" />
