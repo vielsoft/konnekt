@@ -1,6 +1,8 @@
 app.controller('ibeaconNotifyCtrl',function(
     $state,
     apiUrl,
+    ibeaconUuid,
+    ibeaconIdentifier,
     $http,
     $scope,
     $timeout,
@@ -11,6 +13,7 @@ app.controller('ibeaconNotifyCtrl',function(
     aboutKonnekt,
     $cordovaToast,
     $ionicHistory,
+    $ionicPopup,
     $cordovaLocalNotification,
     $ionicSideMenuDelegate){
 
@@ -33,10 +36,11 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Trigger advertisements from SIDEMENU
     $scope.sideMenuAds = function(url,content){
+      $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
       console.log(url + " *** " + content);
-        $scope.adsPost = content;
-        $scope.redirLink = url;
-        $window.open(url,'_blank','location=yes');
+      $scope.adsPost = content;
+      $scope.redirLink = url;
+      $window.open(url,'_blank','location=yes');
     };
 
     //Refresh Floating Menu
@@ -72,8 +76,8 @@ app.controller('ibeaconNotifyCtrl',function(
      },5000);
 
       //Block for ranging and advertising beacons in region
-      var ibeaconIdentifier = 'iBeacon';
-      var ibeaconUuid = 'b9407f30-f5f8-466e-aff9-25556b57fe6d';
+      //var ibeaconIdentifier = 'iBeacon';
+      //var ibeaconUuid = 'b9407f30-f5f8-466e-aff9-25556b57fe6d';
 
       //For IOS Security
       $cordovaBeacon.requestWhenInUseAuthorization();
@@ -190,6 +194,7 @@ app.controller('ibeaconNotifyCtrl',function(
                       },60000);
 
                   },function(err){
+                      $cordovaToast.show("Please check your network connection . . .","long","center");
                       console.log(err.data); //Erorr Logs
                   });
 
