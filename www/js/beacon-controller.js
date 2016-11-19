@@ -29,6 +29,9 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.beaconsName = [];
     $scope.displaybeacons = [];
 
+    //Moderate Notification Throw
+    $scope.notificationModerator = [];
+
     //Handle SIDEMENU PREFERENCES
     $scope.toggleLeft = function(){
       $ionicSideMenuDelegate.toggleLeft()
@@ -76,8 +79,6 @@ app.controller('ibeaconNotifyCtrl',function(
      },5000);
 
       //Block for ranging and advertising beacons in region
-      //var ibeaconIdentifier = 'iBeacon';
-      //var ibeaconUuid = 'b9407f30-f5f8-466e-aff9-25556b57fe6d';
 
       //For IOS Security
       $cordovaBeacon.requestWhenInUseAuthorization();
@@ -140,7 +141,9 @@ app.controller('ibeaconNotifyCtrl',function(
                   $cordovaToast.show("Unable to connect server . . . ","long","center");
               });
 
+
               if($scope.beaconData != null){
+
                   //Beacon logs in range
                   console.info($scope.beaconData.title + " is in range . . .");
                   //Fired Notification
@@ -161,7 +164,6 @@ app.controller('ibeaconNotifyCtrl',function(
                     $window.open($scope.redirLink,"_blank","location=yes");
                     console.log("Click link: " + $scope.redirLink);
                   };
-
               }
 
 
