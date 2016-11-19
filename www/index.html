@@ -52,10 +52,10 @@
               <img id="side-header-image" ng-src="img/estimote.png">
             </ion-item>
 
-            <ion-item>
-              <p id="menu-header">
-                <i class="ion-android-settings" id="menu-header-icon"> Preferences</i>
-              </p>
+            <ion-item id="preference-item">
+                <p id="menu-header">
+                  <i class="ion-android-settings" id="menu-header-icon"> Preferences</i>
+                </p>
             </ion-item>
           </ion-list>
 
@@ -65,10 +65,10 @@
           <!--Beacon Status-->
           <ion-scroll zooming="true" direction="y" style="width: 500px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
-                <a class="item item-avatar" href="#" ng-click="sideMenuAds(display.url,display.content)" ng-repeat="display in displaybeacons">
+                <a class="item item-avatar" id="side-menu-item" href="#" ng-click="sideMenuAds(display.url,display.content)" ng-repeat="display in displaybeacons">
                   <img src="{{display.icons}}">
                   <h2>{{ display.title }}</h2>
-                  <p>{{ display.text }}</p>
+                  <p id="side-menu-text">{{ display.text }}</p>
                </a>
             </div>
         </ion-scroll>
