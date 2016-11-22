@@ -1,7 +1,9 @@
-<!-- Footer
-<div class='bar bar-footer bar-dark' ng-controller='ibeaconNotifyCtrl'>
-    <button class="button  icon button-clear ion-arrow-left-b" ng-click="goBackward()"></button>
-    <h1 class="title">did you missed some ads?</h1>
-    <button class="button  icon button-clear ion-arrow-right-b" ng-click="goForward()"></button>
-</div>
--->
+//Stop monitoring range beacons PAUSE
+$cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+console.log("STOP ranging beacons");
+
+$timeout(function(){
+    //Start monitoring range beacons RESUME
+    $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+    console.log("START ranging beacons");
+},60000);
