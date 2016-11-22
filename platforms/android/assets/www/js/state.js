@@ -9,6 +9,6 @@ app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
         controller:'ibeaconNotifyCtrl'
 
     });
-    //Default State
+    //Default state
     $urlRouterProvider.otherwise('/home');
 });

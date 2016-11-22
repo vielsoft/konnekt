@@ -1,16 +1,17 @@
 app.controller('ibeaconNotifyCtrl',function(
-    $state,
     apiUrl,
     ibeaconUuid,
     ibeaconIdentifier,
+    killBeacon,
+    aboutKonnekt,
     $http,
+    $state,
     $scope,
     $timeout,
     $window,
     $ionicPlatform,
     $cordovaBeacon,
     $rootScope,
-    aboutKonnekt,
     $cordovaToast,
     $ionicHistory,
     $ionicPopup,
@@ -18,26 +19,23 @@ app.controller('ibeaconNotifyCtrl',function(
     $ionicSideMenuDelegate){
 
     $scope.sideMenuWidth = 300;
-
-    //Initial Image on load
+    //Initial image on load
     $scope.adsPost = "img/giphy.gif";
-
-    //Hold BEACONS in RANGE
+    //Hold becons in range
     $scope.rangebeacons = [];
-
-    //Hold BEACONS to be DISPLAY
+    //Hold beacons to be displayed
     $scope.beaconsName = [];
     $scope.displaybeacons = [];
-
-    //Moderate Notification Throw
+    //Notification and beacon detection moderator
     $scope.notificationModerator = [];
+    $scope.beaconDetectModerator = [];
 
-    //Handle SIDEMENU PREFERENCES
+    //Handle sidemenu preferences
     $scope.toggleLeft = function(){
       $ionicSideMenuDelegate.toggleLeft()
     };
 
-    //Trigger advertisements from SIDEMENU
+    //Trigger advertisements from sidemenu *** to be fix
     $scope.sideMenuAds = function(url,content){
       $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
       console.log(url + " *** " + content);
@@ -46,73 +44,83 @@ app.controller('ibeaconNotifyCtrl',function(
       $window.open(url,'_blank','location=yes');
     };
 
-    //Refresh Floating Menu
+    //Refresh floating menu button
     $scope.refreshFloatingMenu = function(){
-      //Initial Image on load is fired when Refreshed
+      killBeacon.killnow(3000);
+      $state.go('home');
       $scope.adsPost = "img/giphy.gif";
-      $scope.urlRedirect = function(){
-          //Needs to be empty to satisfy the null link of refreshed page
-      };
+      $scope.urlRedirect = function(){};
     };
 
-    //About Konnekt
+    //About Konnekt button
     $scope.aboutKonnekt = function(){
         aboutKonnekt.about();
     };
 
-    /*Beacon Detecttion Process*/
+    //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
 
-     // TIMEOUT toast
-     $timeout(function(){
-          //Detect if BT HARDWARE is enabled
-          $cordovaBeacon.isBluetoothEnabled().then(function(state){
-            if(state == true){
-                  console.log('Bluetooth is enabled . . .');
-                  $cordovaToast.show("Bluetooth is enabled","short","center");
-            }
-            else{
-                  console.log('Bluetooth is disabled . . . ');
-                  $cordovaToast.show("Please enable bluetooth on your settings","long","center");
-            }
-          });
-     },5000);
+      //Toast notification for bluetooth
+      $timeout(function(){
+            //Detect if bluetooth hardware is enabled
+            $cordovaBeacon.isBluetoothEnabled().then(function(state){
+              if(state == true){
+                    console.log('Bluetooth is enabled . . .');
+                    $cordovaToast.show("Bluetooth is enabled","short","center");
+              }
+              else{
+                    console.log('Bluetooth is disabled . . . ');
+                    $cordovaToast.show("Please enable bluetooth on your settings","long","center");
+              }
+            });
+      },5000);
 
-      //Block for ranging and advertising beacons in region
-
-      //For IOS Security
+      //For IOS security
       $cordovaBeacon.requestWhenInUseAuthorization();
 
-      //MONITORING Regions
+      //Monitoring regions
       $cordovaBeacon.startMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
 
-      //RANGING Beacons
+      //Ranging beacons
       $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
 
-      //LISTENING
-      $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data) {
-
-          $scope.rangebeacons = data.beacons; //HOLD beacons in RANGE
-          var majorBeacons; //HOLD major
-          var minorBeacons; //HOLD minor
-
+      //Listening . . .
+      $rootScope.$on("$cordovaBeacon:didRangeBeaconsInRegion", function(event, data){
+          $scope.rangebeacons = data.beacons; //Hold beacons in range
+          var majorBeacons; //Hold major
+          var minorBeacons; //Hold minor
 
           //Handle null values to be passed in temporary major and minor value of beacons
           try{
                majorBeacons = $scope.rangebeacons[0].major;
                minorBeacons = $scope.rangebeacons[0].minor;
+               var moderator = majorBeacons + "" + minorBeacons;
+
+               if($scope.beaconDetectModerator.length == 0){
+                  $scope.beaconDetectModerator.push(moderator);
+                  console.log($scope.beaconDetectModerator.length);
+               }
+               else{
+                  if($scope.beaconDetectModerator.indexOf(moderator) == -1){
+                       $scope.beaconDetectModerator.push(moderator);
+                  }
+                  else{
+                      $setTimeout(function(){
+                          majorBeacons = null; minorBeacons = null;
+                      },350);
+                  }
+                  console.log($scope.beaconDetectModerator.length);
+               }
           }catch(err){
                console.log("major and minor is empty . . .");
           }
 
-
           if(majorBeacons != null && minorBeacons != null){
-              //API REQUEST
+              //API Request for beacon detection
               $http.get(apiUrl + '/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
-
                   $scope.beaconData = response.data[0];
                   var check; //Check if Exist
-                  var toPush = $scope.beaconData.title; //Dummy for Checking
+                  var toPush = $scope.beaconData.title; //Dummy for checking detected beacons
                   var urlText = {
                         text: $scope.beaconData.text,
                         url: $scope.beaconData.url,
@@ -135,84 +143,86 @@ app.controller('ibeaconNotifyCtrl',function(
                         }
                       }
                   }
-
               },function(err){
-                  console.log(err.data); //Erorr Logs
+                  console.log(err.data); //Erorr logs
                   $cordovaToast.show("Unable to connect server . . . ","long","center");
               });
 
 
+              //Throw Notification when detected beacons
               if($scope.beaconData != null){
+                  var check = false;
+                  if($scope.notificationModerator.length == 0){
+                      $scope.notificationModerator.push($scope.beaconData.title);
+                      check = true;
+                  }
+                  else{
+                      if($scope.notificationModerator.indexOf($scope.beaconData.title) < 0){
+                          $scope.notificationModerator.push($scope.beaconData.title);
+                          check = true;
+                      }
+                      else{
+                          check = false;
+                      }
+                  }
 
-                  //Beacon logs in range
-                  console.info($scope.beaconData.title + " is in range . . .");
-                  //Fired Notification
-                  $cordovaLocalNotification.schedule({
-                      id: $scope.beaconData.id,
-                      title: $scope.beaconData.title,
-                      text: $scope.beaconData.text,
-                      icon: $scope.beaconData.icons,
-                      smallIcon:"res://icon"
-                  });
+                  if(check == true){
+                      //Beacon logs in range
+                      console.info($scope.beaconData.title + " is in range . . .");
+                      //Fired Notification
+                      $cordovaLocalNotification.schedule({
+                          id: $scope.beaconData.id,
+                          title: $scope.beaconData.title,
+                          text: $scope.beaconData.text,
+                          icon: $scope.beaconData.icons,
+                          smallIcon:"res://icon"
+                      });
 
-                  //POSTING beacons advertisements in main page
-                  $scope.adsPost = $scope.beaconData.content;
-                  $scope.redirLink = $scope.beaconData.url;
+                      //Posting beacons advertisements in main page
+                      $scope.adsPost = $scope.beaconData.content;
+                      $scope.redirLink = $scope.beaconData.url;
 
-                  //REDIRECT Url Links from main page
-                  $scope.urlRedirect = function(){
-                    $window.open($scope.redirLink,"_blank","location=yes");
-                    console.log("Click link: " + $scope.redirLink);
-                  };
-              }
-
-
-              //Notification listen when clicked redirect to corresponding state
-              $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
-
-                  var notifId = notification.id;
-                  $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
-
-                      $scope.notificationData = response.data[0];
-                      console.log($scope.notificationData);
-
-                      //POSTING beacons advertisements in main page when click from notification panel
-                      $scope.adsPost = $scope.notificationData.content;
-                      $scope.redirLinkNotif = $scope.notificationData.url;
-
-                      //REDIRECT Url Links from Notication
+                      //Redirect Url links from main page
                       $scope.urlRedirect = function(){
-                        $window.open($scope.redirLinkNotif,"_blank","location=yes");
+                        $window.open($scope.redirLink,"_blank","location=yes");
                         console.log("Click link: " + $scope.redirLink);
                       };
+                  }
+              }
 
-                      //STOP MONITORING range Beacons PAUSE
-                      $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-                      console.log("STOP ranging beacons");
+            //Notification listen when clicked redirect to corresponding state
+            $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+                var notifId = notification.id;
+                $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
+                    $scope.notificationData = response.data[0];
+                    console.log($scope.notificationData);
 
-                      $timeout(function(){
-                          //START MONITORING range Beacons RESUME
-                          $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-                          console.log("START ranging beacons");
-                      },60000);
+                    //Posting beacons advertisements in main page when click from notification panel
+                    $scope.adsPost = $scope.notificationData.content;
+                    $scope.redirLinkNotif = $scope.notificationData.url;
 
-                  },function(err){
-                      $cordovaToast.show("Please check your network connection . . .","long","center");
-                      console.log(err.data); //Erorr Logs
-                  });
+                    //Redirect Url Links from notication
+                    $scope.urlRedirect = function(){
+                      $window.open($scope.redirLinkNotif,"_blank","location=yes");
+                      console.log("Click link: " + $scope.redirLink);
+                    };
 
-              });
+                    //Stop monitoring range beacons PAUSE
+                    $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+                    console.log("STOP ranging beacons");
 
-              //STOP MONITORING range Beacons PAUSE
-              $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-              console.log("STOP ranging beacons");
+                    $timeout(function(){
+                        //Start monitoring range beacons RESUME
+                        $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+                        console.log("START ranging beacons");
+                    },60000);
 
-              $timeout(function(){
-                  //START MONITORING range Beacons RESUME
-                  $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-                  console.log("START ranging beacons");
-              },11000)
+                },function(err){
+                    $cordovaToast.show("Please check your network connection . . .","long","center");
+                    console.log(err.data); //Erorr logs
+                });
 
+            });
           }
           $scope.$apply();
       });

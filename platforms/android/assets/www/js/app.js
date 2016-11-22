@@ -29,7 +29,7 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache){
         //Enable the app to autostart
         cordova.plugins.autoStart.enable();
 
-        //Enable autostart Bluetooth
+        //Enable autostart bluetooth
         $cordovaBeacon.enableBluetooth();
 
   });
