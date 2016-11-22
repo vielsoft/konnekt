@@ -26,3 +26,16 @@ app.service('clearAppDataCache',function($window,$ionicHistory){
         console.log("Clearing app data . . .");
     };
 });
+
+app.service('killBeacon',function($timeout,$cordovaBeacon,ibeaconUuid,ibeaconIdentifier){
+    //Kill Beacon Service
+    this.killnow = function(ms){
+        var msecs = ms;
+        $cordovaBeacon.stopMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+        $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+        $timeout(function(){
+            $cordovaBeacon.startMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+            $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+        },msecs);
+    };
+});
