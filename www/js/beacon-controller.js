@@ -1,26 +1,28 @@
 app.controller('ibeaconNotifyCtrl',function(
     apiUrl,
     ibeaconUuid,
+    defaultContent,
     ibeaconIdentifier,
+    openLink,
     killBeacon,
     aboutKonnekt,
     $http,
     $state,
     $scope,
-    $timeout,
     $window,
-    $ionicPlatform,
-    $cordovaBeacon,
+    $timeout,
     $rootScope,
+    $ionicPopup,
     $cordovaToast,
     $ionicHistory,
-    $ionicPopup,
-    $cordovaLocalNotification,
-    $ionicSideMenuDelegate){
+    $ionicPlatform,
+    $cordovaBeacon,
+    $ionicSideMenuDelegate,
+    $cordovaLocalNotification){
 
     $scope.sideMenuWidth = 300;
     //Initial image on load
-    $scope.adsPost = "img/giphy.gif";
+    $scope.adsPost = defaultContent;
     //Hold becons in range
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
@@ -35,21 +37,25 @@ app.controller('ibeaconNotifyCtrl',function(
       $ionicSideMenuDelegate.toggleLeft()
     };
 
-    //Trigger advertisements from sidemenu *** to be fix
+    //Trigger advertisements from sidemenu *** to be fix the link
     $scope.sideMenuAds = function(url,content){
-      $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
       console.log(url + " *** " + content);
-      $scope.adsPost = content;
-      $scope.redirLink = url;
-      $window.open(url,'_blank','location=yes');
+      killBeacon.killnow(60000);
+      var x = document.getElementById('sidemenu-trigger');
+      x.setAttribute('src',content);
+      $scope.link = url;
     };
 
     //Refresh floating menu button
     $scope.refreshFloatingMenu = function(){
-      killBeacon.killnow(3000);
-      $state.go('home');
-      $scope.adsPost = "img/giphy.gif";
-      $scope.urlRedirect = function(){};
+      do{
+          killBeacon.killnow(30000);
+          $state.go('home');
+          $scope.adsPost = defaultContent;
+          var x = document.getElementById('sidemenu-trigger');
+          x.setAttribute('src',defaultContent);
+          $scope.urlRedirect = function(){};
+      }while($scope.adsPost != defaultContent)
     };
 
     //About Konnekt button
@@ -185,7 +191,7 @@ app.controller('ibeaconNotifyCtrl',function(
                       //Redirect Url links from main page
                       $scope.urlRedirect = function(){
                         $window.open($scope.redirLink,"_blank","location=yes");
-                        console.log("Click link: " + $scope.redirLink);
+                        console.log("Home Click link: " + $scope.redirLink);
                       };
                   }
               }
@@ -194,6 +200,7 @@ app.controller('ibeaconNotifyCtrl',function(
             $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
                 var notifId = notification.id;
                 $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
+                    killBeacon.killnow(100000);
                     $scope.notificationData = response.data[0];
                     console.log($scope.notificationData);
 
@@ -204,10 +211,8 @@ app.controller('ibeaconNotifyCtrl',function(
                     //Redirect Url Links from notication
                     $scope.urlRedirect = function(){
                       $window.open($scope.redirLinkNotif,"_blank","location=yes");
-                      console.log("Click link: " + $scope.redirLink);
+                      console.log("Notification Click link: " + $scope.redirLinkNotif);
                     };
-
-                    killBeacon.killnow(60000);
 
                 },function(err){
                     $cordovaToast.show("Please check your network connection . . .","long","center");

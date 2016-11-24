@@ -3,7 +3,16 @@ app.service('disableBack',function($ionicHistory){
     this.removeBack = function(){
             $ionicHistory.nextViewOptions({
                   disableBack: true
-              });
+            });
+    };
+});
+
+app.service('openLink',function($window){
+    //Open link inAppBrowser Service
+    this.openNow = function(link){
+        var url = link;
+        console.log(url);
+        $window.open(url,"_blank","location=yes");
     };
 });
 
@@ -33,9 +42,11 @@ app.service('killBeacon',function($timeout,$cordovaBeacon,ibeaconUuid,ibeaconIde
         var msecs = ms;
         $cordovaBeacon.stopMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
         $cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+        console.log("Stop ranging beacons . . .");
         $timeout(function(){
             $cordovaBeacon.startMonitoringForRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
             $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
+            console.log("Start ranging beacons . . .");
         },msecs);
     };
 });
