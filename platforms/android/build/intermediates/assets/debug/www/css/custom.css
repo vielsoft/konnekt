@@ -1,5 +1,5 @@
 #menu-header{
-    font-size: 20px;
+    font-size: 27px;
     font-weight: bold;
     color: white;
 }
@@ -20,6 +20,12 @@
     border: 0px;
 }
 
+#preferences{
+    font-size: 16px !important;
+    position: absolute;
+    margin-top: 0.5%;
+    margin-left: 5px;
+}
 .ads-Image{
     height: 100%;
     width: 100%;

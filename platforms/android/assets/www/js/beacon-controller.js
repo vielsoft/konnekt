@@ -6,11 +6,13 @@ app.controller('ibeaconNotifyCtrl',function(
     openLink,
     killBeacon,
     aboutKonnekt,
+    viewProperty,
     $http,
     $state,
     $scope,
     $window,
     $timeout,
+    $location,
     $rootScope,
     $ionicPopup,
     $cordovaToast,
@@ -19,6 +21,9 @@ app.controller('ibeaconNotifyCtrl',function(
     $cordovaBeacon,
     $ionicSideMenuDelegate,
     $cordovaLocalNotification){
+
+    var x = window.localStorage.getItem('detectedBeacons');
+    $scope.localStorageBeaconDataDisplay = JSON.parse(x);
 
     $scope.sideMenuWidth = 300;
     //Initial image on load
@@ -31,12 +36,8 @@ app.controller('ibeaconNotifyCtrl',function(
     //Notification and beacon detection moderator
     $scope.notificationModerator = [];
     $scope.beaconDetectModerator = [];
-    //Initial show views value
-    $scope.homeView = true;
-    $scope.sidemenuView = true;
     //Ng-click enabler for main page
-    $scope.homeViewClick = true;
-    $scope.sidemenuViewClick = false;
+    $scope.homeViewClick = false;
 
     //Handle sidemenu preferences
     $scope.toggleLeft = function(){
@@ -45,28 +46,26 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Trigger advertisements from sidemenu *** to be fix the link
     $scope.sideMenuAds = function(url,content){
-        $scope.sidemenuViewClick = false;
+        viewProperty.set('homeView','none');
         do{
             killBeacon.killnow(15000);
             $scope.sidemenuAdsPost = content;
             $scope.sidemenuUrlRedirect = function(){
               $window.open(url,"_blank","location=yes");
             };
-        }while($scope.sidemenuAdsPost != content && $scope.sidemenuViewClick != false)
+        }while($scope.sidemenuAdsPost != content)
     };
 
     //Refresh floating menu button
     $scope.refreshFloatingMenu = function(){
+        viewProperty.set('homeView','block');
         do{
             $scope.homeViewClick = true;
-            $scope.sidemenuViewClick = true;
             killBeacon.killnow(30000);
             $state.go('home');
             $scope.adsPost = defaultContent;
-            var x = document.getElementById('sidemenu1-trigger');
+            var x = document.getElementById('homeView');
             x.setAttribute('src',defaultContent);
-            var y = document.getElementById('sidemenu2-trigger');
-            y.setAttribute('src',defaultContent);
         }while($scope.adsPost != defaultContent)
     };
 
@@ -161,6 +160,10 @@ app.controller('ibeaconNotifyCtrl',function(
                         }
                       }
                   }
+                  $scope.localStorageBeaconData = JSON.stringify($scope.displaybeacons);
+                  window.localStorage.setItem('detectedBeacons',$scope.localStorageBeaconData);
+                  var x = window.localStorage.getItem('detectedBeacons');
+                  $scope.localStorageBeaconDataDisplay = JSON.parse(x);
               },function(err){
                   console.log(err.data); //Erorr logs
                   $cordovaToast.show("Unable to connect server . . . ","long","center");
@@ -186,6 +189,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
                   if(check == true){
                       $scope.homeViewClick = false;
+                      viewProperty.set('homeView','block');
                       //Beacon logs in range
                       console.info($scope.beaconData.title + " is in range . . .");
                       //Fired Notification
@@ -212,6 +216,7 @@ app.controller('ibeaconNotifyCtrl',function(
             //Notification listen when clicked redirect to corresponding state
             $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
                 $scope.homeViewClick = false;
+                viewProperty.set('homeView','block');
                 var notifId = notification.id;
                 $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
 
