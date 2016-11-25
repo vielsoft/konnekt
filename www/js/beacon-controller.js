@@ -22,6 +22,9 @@ app.controller('ibeaconNotifyCtrl',function(
     $ionicSideMenuDelegate,
     $cordovaLocalNotification){
 
+    var x = window.localStorage.getItem('detectedBeacons');
+    $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+
     $scope.sideMenuWidth = 300;
     //Initial image on load
     $scope.adsPost = defaultContent;
@@ -157,6 +160,10 @@ app.controller('ibeaconNotifyCtrl',function(
                         }
                       }
                   }
+                  $scope.localStorageBeaconData = JSON.stringify($scope.displaybeacons);
+                  window.localStorage.setItem('detectedBeacons',$scope.localStorageBeaconData);
+                  var x = window.localStorage.getItem('detectedBeacons');
+                  $scope.localStorageBeaconDataDisplay = JSON.parse(x);
               },function(err){
                   console.log(err.data); //Erorr logs
                   $cordovaToast.show("Unable to connect server . . . ","long","center");
