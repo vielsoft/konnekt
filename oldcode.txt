@@ -1,9 +1,1 @@
-//Stop monitoring range beacons PAUSE
-$cordovaBeacon.stopRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-console.log("STOP ranging beacons");
-
-$timeout(function(){
-    //Start monitoring range beacons RESUME
-    $cordovaBeacon.startRangingBeaconsInRegion($cordovaBeacon.createBeaconRegion(ibeaconIdentifier,ibeaconUuid));
-    console.log("START ranging beacons");
-},60000);
+Note: displaybeacons : main Scope in  sidemenu
