@@ -6,7 +6,8 @@
       </ion-floating-menu menu-color="#4c4c4c">
 
       <!--Flash banner/image/poster ads-->
-      <ion-content class="has-header" scroll="false">
-            <img id="sidemenu-trigger" class="ads-Image" ng-src="{{adsPost}}" ng-click="urlRedirect()"></img>
+      <ion-content class="has-header" scroll="true">
+            <img id="sidemenu1-trigger" ng-show="homeView" class="ads-Image" ng-src="{{adsPost}}" ng-click="homeViewClick || urlRedirect()"></img>
+            <img id="sidemenu2-trigger" ng-show="sidemenuView" class="ads-Image" ng-src="{{sidemenuAdsPost}}" ng-click="sidemenuViewClick || sidemenuUrlRedirect()"></img>
       </ion-content>
 </ion-view>

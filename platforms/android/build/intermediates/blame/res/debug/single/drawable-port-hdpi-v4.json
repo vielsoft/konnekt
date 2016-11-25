@@ -10,5 +10,9 @@
     {
         "merged": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/build/intermediates/res/merged/debug/drawable-port-hdpi-v4/screen.png",
         "source": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/drawable-port-hdpi/screen.png"
+    },
+    {
+        "merged": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/res/merged/debug/drawable-port-hdpi-v4/screen.png",
+        "source": "/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/res/drawable-port-hdpi/screen.png"
     }
 ]

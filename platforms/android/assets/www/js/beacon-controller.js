@@ -1,6 +1,7 @@
 app.controller('ibeaconNotifyCtrl',function(
     apiUrl,
     ibeaconUuid,
+    defaultContent,
     ibeaconIdentifier,
     openLink,
     killBeacon,
@@ -18,10 +19,10 @@ app.controller('ibeaconNotifyCtrl',function(
     $cordovaBeacon,
     $ionicSideMenuDelegate,
     $cordovaLocalNotification){
-      
+
     $scope.sideMenuWidth = 300;
     //Initial image on load
-    $scope.adsPost = "img/giphy.gif";
+    $scope.adsPost = defaultContent;
     //Hold becons in range
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
@@ -30,32 +31,43 @@ app.controller('ibeaconNotifyCtrl',function(
     //Notification and beacon detection moderator
     $scope.notificationModerator = [];
     $scope.beaconDetectModerator = [];
+    //Initial show views value
+    $scope.homeView = true;
+    $scope.sidemenuView = true;
+    //Ng-click enabler for main page
+    $scope.homeViewClick = true;
+    $scope.sidemenuViewClick = false;
 
     //Handle sidemenu preferences
     $scope.toggleLeft = function(){
       $ionicSideMenuDelegate.toggleLeft()
     };
 
-    //Trigger advertisements from sidemenu *** to be fix
+    //Trigger advertisements from sidemenu *** to be fix the link
     $scope.sideMenuAds = function(url,content){
-      console.log(url + " *** " + content);
-      killBeacon.killnow(60000);
-      var x = document.getElementById('sidemenu-trigger');
-      x.setAttribute('src',content);
-      $scope.link = url;
-      $scope.urlRedirect = function(){
-        $window.open($scope.link,"_blank","location=yes");
-      };
+        $scope.sidemenuViewClick = false;
+        do{
+            killBeacon.killnow(15000);
+            $scope.sidemenuAdsPost = content;
+            $scope.sidemenuUrlRedirect = function(){
+              $window.open(url,"_blank","location=yes");
+            };
+        }while($scope.sidemenuAdsPost != content && $scope.sidemenuViewClick != false)
     };
 
     //Refresh floating menu button
     $scope.refreshFloatingMenu = function(){
-      killBeacon.killnow(100000);
-      $state.go('home');
-      $scope.adsPost = "img/giphy.gif";
-      var x = document.getElementById('sidemenu-trigger');
-      x.setAttribute('src','img/giphy.gif');
-      $scope.urlRedirect = function(){};
+        do{
+            $scope.homeViewClick = true;
+            $scope.sidemenuViewClick = true;
+            killBeacon.killnow(30000);
+            $state.go('home');
+            $scope.adsPost = defaultContent;
+            var x = document.getElementById('sidemenu1-trigger');
+            x.setAttribute('src',defaultContent);
+            var y = document.getElementById('sidemenu2-trigger');
+            y.setAttribute('src',defaultContent);
+        }while($scope.adsPost != defaultContent)
     };
 
     //About Konnekt button
@@ -173,6 +185,7 @@ app.controller('ibeaconNotifyCtrl',function(
                   }
 
                   if(check == true){
+                      $scope.homeViewClick = false;
                       //Beacon logs in range
                       console.info($scope.beaconData.title + " is in range . . .");
                       //Fired Notification
@@ -198,15 +211,19 @@ app.controller('ibeaconNotifyCtrl',function(
 
             //Notification listen when clicked redirect to corresponding state
             $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+                $scope.homeViewClick = false;
                 var notifId = notification.id;
                 $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
-                    killBeacon.killnow(100000);
+
                     $scope.notificationData = response.data[0];
                     console.log($scope.notificationData);
 
-                    //Posting beacons advertisements in main page when click from notification panel
-                    $scope.adsPost = $scope.notificationData.content;
-                    $scope.redirLinkNotif = $scope.notificationData.url;
+                    do{
+                        killBeacon.killnow(100000);
+                        //Posting beacons advertisements in main page when click from notification panel
+                        $scope.adsPost = $scope.notificationData.content;
+                        $scope.redirLinkNotif = $scope.notificationData.url;
+                    }while($scope.adsPost != $scope.notificationData && $scope.redirLinkNotif != $scope.notificationData.url)
 
                     //Redirect Url Links from notication
                     $scope.urlRedirect = function(){
