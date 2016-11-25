@@ -1,5 +1,5 @@
 app.service('disableBack',function($ionicHistory){
-    // Disable Views Back Service
+    //Disable Views Back Service
     this.removeBack = function(){
             $ionicHistory.nextViewOptions({
                   disableBack: true
@@ -7,11 +7,18 @@ app.service('disableBack',function($ionicHistory){
     };
 });
 
+app.service('viewProperty',function(){
+    //View and Hide Element Service
+    this.set = function(id,val){
+        var x = document.getElementById(id);
+        x.style.display = val;
+    };
+});
+
 app.service('openLink',function($window){
     //Open link inAppBrowser Service
     this.openNow = function(link){
         var url = link;
-        console.log(url);
         $window.open(url,"_blank","location=yes");
     };
 });
