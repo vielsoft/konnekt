@@ -36,9 +36,9 @@ app.service('aboutKonnekt',function($ionicPopup){
 app.service('clearAppDataCache',function($window,$ionicHistory){
     //Clear App Data and Cache Service
     this.clearApp = function(){
-        $window.localStorage.clear();
-        $ionicHistory.clearCache();
-        $ionicHistory.clearHistory();
+        //$window.localStorage.clear();
+        //$ionicHistory.clearCache();
+        //$ionicHistory.clearHistory();
         console.log("Clearing app data . . .");
     };
 });
