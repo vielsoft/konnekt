@@ -7,6 +7,7 @@
 
       <!--Flash banner/image/poster ads-->
       <ion-content class="has-header" scroll="false">
-            <img id="sidemenu-trigger" class="ads-Image" ng-src="{{adsPost}}" ng-click="urlRedirect()"></img>
+          <img id="homeView"  class="ads-Image" ng-src="{{adsPost}}" ng-click="homeViewClick || urlRedirect()"></img>
+          <img id="sidemenuView"  class="ads-Image" ng-src="{{sidemenuAdsPost}}" ng-click="sidemenuUrlRedirect()"></img>
       </ion-content>
 </ion-view>
