@@ -77,9 +77,9 @@
                     "position": {
                         "startLine": 4,
                         "startColumn": 4,
-                        "startOffset": 159,
+                        "startOffset": 169,
                         "endColumn": 63,
-                        "endOffset": 218
+                        "endOffset": 228
                     }
                 }
             },
@@ -88,8 +88,8 @@
                     "startLine": 3,
                     "startColumn": 4,
                     "startOffset": 119,
-                    "endColumn": 44,
-                    "endOffset": 159
+                    "endColumn": 54,
+                    "endOffset": 169
                 },
                 "from": {
                     "file": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/values/strings.xml",
@@ -97,8 +97,8 @@
                         "startLine": 2,
                         "startColumn": 4,
                         "startOffset": 55,
-                        "endColumn": 44,
-                        "endOffset": 95
+                        "endColumn": 54,
+                        "endOffset": 105
                     }
                 }
             },
@@ -106,18 +106,18 @@
                 "to": {
                     "startLine": 4,
                     "startColumn": 4,
-                    "startOffset": 164,
+                    "startOffset": 174,
                     "endColumn": 58,
-                    "endOffset": 218
+                    "endOffset": 228
                 },
                 "from": {
                     "file": "/home/vielsoft-dev-6/Desktop/konnekt/platforms/android/res/values/strings.xml",
                     "position": {
                         "startLine": 3,
                         "startColumn": 4,
-                        "startOffset": 100,
+                        "startOffset": 110,
                         "endColumn": 58,
-                        "endOffset": 154
+                        "endOffset": 164
                     }
                 }
             }

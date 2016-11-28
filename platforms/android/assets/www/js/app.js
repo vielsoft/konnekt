@@ -1,12 +1,8 @@
- var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']);
-
+var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']);
 
 app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache){
 
   $ionicPlatform.ready(function(){
-
-        //Clear AppDataCache service
-        clearAppDataCache.clearApp();
 
         if(window.cordova && window.cordova.plugins.Keyboard){
             cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);

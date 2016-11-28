@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.ionicframework.ioniclocalnotification142698"
+    package="com.ionicframework.konnekt"
     android:hardwareAccelerated="true"
     android:versionCode="100008"
     android:versionName="1.0.0" >
@@ -32,7 +32,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true" >
         <activity
-            android:name="com.ionicframework.ioniclocalnotification142698.MainActivity"
+            android:name="com.ionicframework.konnekt.MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|locale"
             android:label="@string/activity_name"
             android:launchMode="singleTop"

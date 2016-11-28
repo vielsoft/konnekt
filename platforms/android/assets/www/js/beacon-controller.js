@@ -215,6 +215,9 @@ app.controller('ibeaconNotifyCtrl',function(
 
             //Notification listen when clicked redirect to corresponding state
             $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+                if($ionicSideMenuDelegate.isOpen()){
+                    $scope.toggleLeft();
+                }
                 $scope.homeViewClick = false;
                 viewProperty.set('homeView','block');
                 var notifId = notification.id;
