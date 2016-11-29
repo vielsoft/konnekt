@@ -46,6 +46,10 @@
     {
       "locator": "https://github.com/amitsinha559/cordova-plugin-back-as-home.git",
       "id": "com.amitsinha.backashome"
+    },
+    {
+      "locator": "https://github.com/litehelpers/Cordova-sqlite-storage.git",
+      "id": "cordova-sqlite-storage"
     }
   ],
   "cordovaPlatforms": [

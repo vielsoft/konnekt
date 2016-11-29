@@ -45,6 +45,9 @@
         },
         "com.amitsinha.backashome": {
             "PACKAGE_NAME": "com.ionicframework.ioniclocalnotification142698"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.ionicframework.konnekt"
         }
     },
     "dependent_plugins": {
