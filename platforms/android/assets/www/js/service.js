@@ -57,3 +57,18 @@ app.service('killBeacon',function($timeout,$cordovaBeacon,ibeaconUuid,ibeaconIde
         },msecs);
     };
 });
+
+
+app.service('backgroundMode',function($cordovaLocalNotification){
+    //Notify when in Backgroundmode Service
+    this.notify = function(title,text){
+        var notifTitle = title;
+        var notifText = text;
+        $cordovaLocalNotification.schedule({
+          id: '0',
+          title: notifTitle,
+          text: notifText,
+          icon: 'res://icon'
+        });
+    };
+});

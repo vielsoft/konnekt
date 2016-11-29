@@ -75,13 +75,17 @@ app.controller('ibeaconNotifyCtrl',function(
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
 
-      //Retrieve CSLStrorage on startup
+      //Retrieve SQLiteStrorage on startup
       try{
           var query = "SELECT * FROM konnekt_table WHERE id = ?";
           $cordovaSQLite.execute(db,query,["1"]).then(function(res){
-              var x = res.rows.item(0).beacondata;
-              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
-              console.info("SUCCEESS RETRIEVE" + x);
+              if(res.rows.length > 0){
+                var x = res.rows.item(0).beacondata;
+                $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+              }
+              else{
+                console.info("Database is currently empty . . .");
+              }
           },function(err){
               console.log(err.message);
           });
@@ -175,7 +179,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
                   $scope.localStorageBeaconData = JSON.stringify($scope.displaybeacons);
 
-                  //UPDATE localStorage
+                  //Update SQLiteStrorage
                   try{
                       var query = "UPDATE konnekt_table SET beacondata = ? WHERE id = ?";
                       $cordovaSQLite.execute(db,query,[$scope.localStorageBeaconData,"1"]).then(function(res){
@@ -194,13 +198,17 @@ app.controller('ibeaconNotifyCtrl',function(
                       console.log("Erorr UPDATE . . . ");
                   }
 
-                  //RETRIEVE localStorage
+                  //Retrieve SQLiteStrorage
                   try{
                       var query = "SELECT * FROM konnekt_table WHERE id = ?";
                       $cordovaSQLite.execute(db,query,["1"]).then(function(res){
-                          var x = res.rows.item(0).beacondata;
-                          $scope.localStorageBeaconDataDisplay = JSON.parse(x);
-                          console.log(x);
+                          if(res.rows.length >0){
+                              var x = res.rows.item(0).beacondata;
+                              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+                          }
+                          else{
+                              console.info("Database is currently empty . . .")
+                          }
                       },function(err){
                           console.log(err.message);
                       });
