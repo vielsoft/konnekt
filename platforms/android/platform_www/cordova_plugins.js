@@ -135,6 +135,13 @@ module.exports = [
         "merges": [
             "backAsHome"
         ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -153,7 +160,8 @@ module.exports.metadata =
     "cordova-plugin-x-toast": "2.5.2",
     "cordova-plugin-autostart": "2.0.1",
     "cordova-plugin-background-mode": "0.6.6-dev",
-    "com.amitsinha.backashome": "0.1.0"
+    "com.amitsinha.backashome": "0.1.0",
+    "cordova-sqlite-storage": "1.5.0"
 };
 // BOTTOM OF METADATA
 });

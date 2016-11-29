@@ -9,18 +9,11 @@
         <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/altbeacon_86ddb9f85bc13a87b39729707e86f942d57928e4.jar" />
     </item>
     <item
-        jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/libs/sqlite-connector.jar"
         jumboMode="false"
         revision="24.0.0"
-        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
-        <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_d8c8ff327b78c9c137daffffb3fbd2025aa86788.jar" />
-    </item>
-    <item
-        jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
-        jumboMode="false"
-        revision="24.0.0"
-        sha1="226bd751711dc0d2828c0860c14743357168bdf2">
-        <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-unspecified-debug_2365057290c9198245094e7a8bb738c3690fb544.jar" />
+        sha1="76169ab23a4f939925491c6fe186749da5a56ee9">
+        <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/sqlite-connector_2d3b744af4f10025acfa74a662b5aeccab008876.jar" />
     </item>
     <item
         jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/libs/internal_impl-24.0.0.jar"
@@ -28,6 +21,20 @@
         revision="24.0.0"
         sha1="fcaf463e10e69c1923ccf1edeba3b4196d239e00">
         <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/internal_impl-24.0.0_36ef73145c90036e28a72a9e96646fccbb51d0ec.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/exploded-aar/android/CordovaLib/unspecified/debug/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="d6cafd97b33430a0f3929d8105197c5295887cb2">
+        <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/CordovaLib-unspecified-debug_2365057290c9198245094e7a8bb738c3690fb544.jar" />
+    </item>
+    <item
+        jar="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/exploded-aar/com.android.support/support-v4/24.0.0/jars/classes.jar"
+        jumboMode="false"
+        revision="24.0.0"
+        sha1="2f7e6e2dad1bccaf68a8820820adc6c0d5b96d37">
+        <dex dex="/home/vielsoft-dev-6/Desktop/konnekt_revision/platforms/android/build/intermediates/pre-dexed/debug/com.android.support-support-v4-24.0.0_d8c8ff327b78c9c137daffffb3fbd2025aa86788.jar" />
     </item>
 
 </items>

@@ -1,6 +1,6 @@
 var app = angular.module('konnekt', ['ionic','ngCordova','ion-floating-menu']);
 
-app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache){
+app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache,$cordovaSQLite){
 
   $ionicPlatform.ready(function(){
 
@@ -28,6 +28,9 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache){
         //Enable autostart bluetooth
         $cordovaBeacon.enableBluetooth();
 
+        db = $cordovaSQLite.openDB({name:'konnekt.db',location:'default'});
+        //var db = $cordovaSQLite.openDB({name:'konnekt.db',bgType:1,location:'default'});
+        $cordovaSQLite.execute(db,"CREATE TABLE IF NOT EXISTS konnekt_table (id integer primary key, beacondata  text)");
   });
 
 });
