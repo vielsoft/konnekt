@@ -17,13 +17,11 @@ app.controller('ibeaconNotifyCtrl',function(
     $ionicPopup,
     $cordovaToast,
     $ionicHistory,
+    $cordovaSQLite,
     $ionicPlatform,
     $cordovaBeacon,
     $ionicSideMenuDelegate,
     $cordovaLocalNotification){
-
-    var x = window.localStorage.getItem('detectedBeacons');
-    $scope.localStorageBeaconDataDisplay = JSON.parse(x);
 
     $scope.sideMenuWidth = 300;
     //Initial image on load
@@ -76,6 +74,19 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
+
+      //Retrieve SQLiteStrorage on startup
+      try{
+          var query = "SELECT * FROM konnekt_table WHERE id = ?";
+          $cordovaSQLite.execute(db,query,["1"]).then(function(res){
+              var x = res.rows.item(0).beacondata;
+              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+          },function(err){
+              console.log(err.message);
+          });
+      }catch(err){
+          console.log("Erorr SELECT . . . ");
+      }
 
       //Toast notification for bluetooth
       $timeout(function(){
@@ -160,10 +171,41 @@ app.controller('ibeaconNotifyCtrl',function(
                         }
                       }
                   }
+
                   $scope.localStorageBeaconData = JSON.stringify($scope.displaybeacons);
-                  window.localStorage.setItem('detectedBeacons',$scope.localStorageBeaconData);
-                  var x = window.localStorage.getItem('detectedBeacons');
-                  $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+
+                  //Update SQLiteStrorage
+                  try{
+                      var query = "UPDATE konnekt_table SET beacondata = ? WHERE id = ?";
+                      $cordovaSQLite.execute(db,query,[$scope.localStorageBeaconData,"1"]).then(function(res){
+                          if(res.insertId == undefined){
+                              var query = "INSERT INTO konnekt_table (beacondata) VALUES (?)";
+                              $cordovaSQLite.execute(db,query,[$scope.localStorageBeaconData]).then(function(res){
+                                console.log("ID: " + res.insertId);
+                              },function(err){
+                                console.log(err.message);
+                              });
+                          }
+                      },function(err){
+                          console.log(err.message);
+                      });
+                  }catch(err){
+                      console.log("Erorr UPDATE . . . ");
+                  }
+
+                  //Retrieve SQLiteStrorage
+                  try{
+                      var query = "SELECT * FROM konnekt_table WHERE id = ?";
+                      $cordovaSQLite.execute(db,query,["1"]).then(function(res){
+                          var x = res.rows.item(0).beacondata;
+                          $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+                      },function(err){
+                          console.log(err.message);
+                      });
+                  }catch(err){
+                      console.log("Erorr SELECT . . . ");
+                  }
+
               },function(err){
                   console.log(err.data); //Erorr logs
                   $cordovaToast.show("Unable to connect server . . . ","long","center");
