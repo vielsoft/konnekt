@@ -79,8 +79,13 @@ app.controller('ibeaconNotifyCtrl',function(
       try{
           var query = "SELECT * FROM konnekt_table WHERE id = ?";
           $cordovaSQLite.execute(db,query,["1"]).then(function(res){
-              var x = res.rows.item(0).beacondata;
-              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+              if(res.rows.length > 0){
+                var x = res.rows.item(0).beacondata;
+                $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+              }
+              else{
+                console.info("Database is currently empty . . .");
+              }
           },function(err){
               console.log(err.message);
           });
@@ -197,8 +202,13 @@ app.controller('ibeaconNotifyCtrl',function(
                   try{
                       var query = "SELECT * FROM konnekt_table WHERE id = ?";
                       $cordovaSQLite.execute(db,query,["1"]).then(function(res){
-                          var x = res.rows.item(0).beacondata;
-                          $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+                          if(res.rows.length >0){
+                              var x = res.rows.item(0).beacondata;
+                              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+                          }
+                          else{
+                              console.info("Database is currently empty . . .")
+                          }
                       },function(err){
                           console.log(err.message);
                       });
