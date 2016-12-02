@@ -21,7 +21,7 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache,$cordov
 
         $ionicPlatform.registerBackButtonAction(function(e){
           backAsHome.trigger(function(){
-              backgroundMode.notify('Konnekt','Konnekt is running in background mode');
+              backgroundMode.notify('Konnekt','Konnekt is running in background mode . . .');
               console.log("Success Over riding Back as Home . . .");
           }, function(){
               console.log("Error Over riding Back as Home . . .");
@@ -36,8 +36,14 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache,$cordov
         $cordovaBeacon.enableBluetooth();
 
         db = $cordovaSQLite.openDB({name:'konnekt.db',location:'default'});
+        //db = window.openDatabase("konnekt.db", "1.0", "Cordova Demo", 200000);
         //var db = $cordovaSQLite.openDB({name:'konnekt.db',bgType:1,location:'default'});
-        $cordovaSQLite.execute(db,"CREATE TABLE IF NOT EXISTS konnekt_table (id integer primary key, beacondata  text)");
+        $cordovaSQLite.execute(db,"CREATE TABLE IF NOT EXISTS konnekt_table (id integer primary key, beacondata  text)")
+        .then(function(res){
+            console.log("konnekt_table has been created . . . ");
+        },function(err){
+            console.log(err.message);
+        })
   });
 
 });
