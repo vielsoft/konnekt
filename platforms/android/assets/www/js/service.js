@@ -67,7 +67,19 @@ app.service('backgroundMode',function($cordovaLocalNotification){
           id: '0',
           title: notifTitle,
           text: notifText,
-          icon: 'res://icon'
+          icon: 'res://icon',
+          smallIcon: 'res://icon'
         });
+    };
+});
+
+app.service('stringDate',function(){
+    //String Date Service
+    this.convertedDate = function(){
+        var x = new Date();
+        var intDay = x.getMonth();
+        var listDay = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        var returnStringDate = listDay[intDay] + " " + x.getDate();
+        return returnStringDate;
     };
 });
