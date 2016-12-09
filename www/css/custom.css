@@ -1,33 +1,45 @@
-#menu-header{
+#menu-header {
     font-size: 27px;
     font-weight: bold;
     color: white;
 }
 
-#side-header-image{
+#side-header-image {
     width: 200px;
 }
 
-#side-menu-text{
-    font-size: 1px;
+#side-menu-text {
+    font-size: 2px;
 }
 
-#preference-item{
+#preference-item {
     background-color: #444;
 }
 
-#side-menu-item{
+#side-menu-item {
     border: 0px;
 }
 
-#preferences{
+#side-menu-item-title {
+    margin-top: 5px;
+}
+
+#side-menu-text-date {
+    font-size: 3px;
+    float: right;
+    position: absolute;
+    margin-left: 180px;
+    bottom: 30px;
+}
+
+#preferences {
     font-size: 16px !important;
     position: absolute;
     margin-top: 0.5%;
     margin-left: 5px;
 }
 
-#delete{
+#delete {
     position: absolute;
     margin-left: 220px;
 }
@@ -39,7 +51,7 @@
     border-bottom: none !important;
 }
 
-.ads-Image{
+.ads-Image {
     height: 100%;
     width: 100%;
 }
