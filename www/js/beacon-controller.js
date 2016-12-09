@@ -4,6 +4,7 @@ app.controller('ibeaconNotifyCtrl',function(
     defaultContent,
     ibeaconIdentifier,
     openLink,
+    stringDate,
     killBeacon,
     aboutKonnekt,
     viewProperty,
@@ -29,8 +30,9 @@ app.controller('ibeaconNotifyCtrl',function(
     //Hold becons in range
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
-    $scope.beaconsName = [];
     $scope.displaybeacons = [];
+    $scope.toBeArrange = [];
+    $scope.localStorageBeaconDataDisplay = [];
     //Notification and beacon detection moderator
     $scope.notificationModerator = [];
     $scope.beaconDetectModerator = [];
@@ -44,6 +46,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Trigger advertisements from sidemenu
     $scope.sideMenuAds = function(url,content){
+      $scope.toggleLeft();
         viewProperty.set('homeView','none');
         do{
             killBeacon.killnow(15000);
@@ -74,15 +77,24 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
-      //Retrieve Data
-      $cordovaSQLite.execute(db,'SELECT beacondata FROM konnekt_table WHERE id = ?',[1]).then(function(res){
-          if(res.rows.length != 0){
-              var x = res.rows.item(0).beacondata;
-              $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+      //Retrieve Data from DB
+      $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
+          var resLen = res.rows.length;
+          for(var x = 0; x != resLen; x++){
+              var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
+              if($scope.displaybeacons.length == 0){
+                  $scope.displaybeacons.push(toPush);
+                  $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+              }
+              else{
+                var check = $scope.displaybeacons.indexOf(toPush);
+                if(check == -1){
+                  $scope.displaybeacons.push(toPush);
+                  $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                }
+              }
           }
-      },function(err){
-          console.log(err.message);
-      });
+      },function(err){ console.log(err.message) });
 
       //Toast notification for bluetooth
       $timeout(function(){
@@ -143,62 +155,56 @@ app.controller('ibeaconNotifyCtrl',function(
               //API Request for beacon detection
               $http.get(apiUrl + '/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
                   $scope.beaconData = response.data[0];
-                  var check; //Check if Exist
-                  var toPush = $scope.beaconData.title; //Dummy for checking detected beacons
+                  var d = new Date();
+                  //Data to be push in DB
                   var urlText = {
+                        title: $scope.beaconData.title,
                         text: $scope.beaconData.text,
                         url: $scope.beaconData.url,
                         icons: $scope.beaconData.icons,
-                        content: $scope.beaconData.content
+                        content: $scope.beaconData.content,
+                        fulldate_detected: d.toUTCString(),
+                        date_detected: stringDate.convertedDate()
                   };
-                  if($scope.beaconsName.length == 0){
-                      $scope.beaconsName.push(toPush);
-                      urlText.title = $scope.beaconData.title;
-                      $scope.displaybeacons.push(urlText);
-                  }
-                  else{
-                      var len = $scope.beaconsName.length;
-                      for(var x = 0; x <= len; x++){
-                        check = $scope.beaconsName.indexOf($scope.beaconData.title);
-                        if(check == -1){
-                          $scope.beaconsName.push(toPush);
-                          urlText.title = $scope.beaconData.title;
-                          $scope.displaybeacons.push(urlText);
-                        }
-                      }
-                  }
-
-                  $scope.localStorageBeaconData = JSON.stringify($scope.displaybeacons);
-
-                  //Storing Beacondata
-                  $cordovaSQLite.execute(db,'SELECT beacondata FROM konnekt_table WHERE id = ?',[1]).then(function(res){
+                  //Store and Update Data from DB
+                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table WHERE title = ? AND date_detected = ?',[urlText.title,urlText.date_detected]).then(function(res){
+                      console.log(res.rows);
                       if(res.rows.length == 0){
-                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (id,beacondata) VALUES (?,?)',[1,$scope.localStorageBeaconData]).then(function(res){
+                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (title , text , url , content , icons , fulldate_detected , date_detected) VALUES (?,?,?,?,?,?,?)',
+                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected]).then(function(res){
                               console.log("ID: " + res.insertId);
-                          },function(err){
-                              console.log(err.message);
-                          });
+                          },function(err){ console.log(err.message); });
                       }
                       else{
-                          $cordovaSQLite.execute(db,'UPDATE konnekt_table SET beacondata = ? WHERE id = ?',[$scope.localStorageBeaconData,1]).then(function(res){
-                              console.log("Success update . . .");
-                          },function(err){
-                              console.log(err.message);
-                          });
+                        console.log("DUPLICATES: " + res.rows.length);
+                        if(res.rows.length == 1){
+                            var toUpdate = res.rows.item(0);
+                            $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ?, date_detected = ? WHERE title = ? AND date_detected = ?',
+                            [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected, toUpdate.title, toUpdate.date_detected]).then(function(res){
+                                console.log("Successfully Updated. . . ");
+                            },function(err){ console.log(err); })
+                        }
                       }
-                  },function(err){
-                      console.log(err.message);
-                  });
+                  },function(err){ console.log(err.message)});
 
-                  $cordovaSQLite.execute(db,'SELECT beacondata FROM konnekt_table WHERE id = ?',[1]).then(function(res){
-                      if(res.rows.length != 0){
-                          var x = res.rows.item(0).beacondata;
-                          console.log(x);
-                          $scope.localStorageBeaconDataDisplay = JSON.parse(x);
+                  //Retrieve Data from DB
+                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
+                      var resLen = res.rows.length;
+                      for(var x = 0; x != resLen; x++){
+                          var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
+                          if($scope.displaybeacons.length == 0){
+                              $scope.displaybeacons.push(toPush);
+                              $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                          }
+                          else{
+                            var check = $scope.displaybeacons.indexOf(toPush);
+                            if(check == -1){
+                              $scope.displaybeacons.push(toPush);
+                              $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                            }
+                          }
                       }
-                  },function(err){
-                      console.log(err.message);
-                  });
+                  },function(err){ console.log(err.message) });
 
               },function(err){
                   console.log(err.data); //Erorr logs
