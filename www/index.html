@@ -15,6 +15,7 @@
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <script src="lib/angular-base64/angular-base64.js"></script>
 
     <!-- cordova script (this will be a 404 during development) -->
     <script src="lib/ngCordova/dist/ng-cordova.min.js"></script>
@@ -66,13 +67,15 @@
           <!--Show Scan Advertisements-->
           <ion-toggle ng-model="showBeaconStatus" toggle-class="toggle-dark">Show scanned Advertisements &nbsp;&nbsp;&nbsp;</ion-toggle>
           <!--Beacon Status-->
-          <ion-scroll zooming="true" direction="y" style="width: 500px; height: 500px">
+          <ion-scroll zooming="true" direction="y" style="width: 300px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
                 <a class="item item-avatar" id="side-menu-item" href="#" ng-click="sideMenuAds(display.url,display.content)" ng-repeat="display in localStorageBeaconDataDisplay">
                   <img src="{{display.icons}}">
-                  <h2>{{ display.title }}</h2>
+                  <h3 id="side-menu-item-title">{{ display.title }}</h3>
                   <p id="side-menu-text">{{ display.text }}</p>
+                  <div id="side-menu-text-date">{{ display.date_detected }}</div>
                </a>
+               <div style="height:100px;"></div>
             </div>
         </ion-scroll>
       </ion-side-menu>
