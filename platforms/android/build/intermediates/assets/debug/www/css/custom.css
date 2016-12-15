@@ -39,9 +39,11 @@
     margin-left: 5px;
 }
 
-#delete {
+#reload {
+  margin-top: 2.3px;
     position: absolute;
-    margin-left: 220px;
+    margin-left: 225px;
+    font-size: 25px;
 }
 
 .bar-header {

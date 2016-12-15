@@ -31,7 +31,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
     $scope.displaybeacons = [];
-    $scope.toBeArrange = [];
+    $scope.tempDB = [];
     $scope.localStorageBeaconDataDisplay = [];
     //Notification and beacon detection moderator
     $scope.notificationModerator = [];
@@ -75,26 +75,31 @@ app.controller('ibeaconNotifyCtrl',function(
         aboutKonnekt.about();
     };
 
+    //Retrieve Data from cordovaSQLite Storage
+    $scope.retrieveData = function(){
+        $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
+            var resLen = res.rows.length;
+            for(var x = 0; x != resLen; x++){
+                var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
+                if($scope.displaybeacons.length == 0){
+                    $scope.displaybeacons.push(toPush);
+                    $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                }
+                else{
+                  var check = $scope.displaybeacons.indexOf(toPush);
+                  if(check == -1){
+                    $scope.displaybeacons.push(toPush);
+                    $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                  }
+                }
+            }
+        },function(err){ console.log(err.message) });
+    };
+
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
       //Retrieve Data from DB
-      $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
-          var resLen = res.rows.length;
-          for(var x = 0; x != resLen; x++){
-              var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
-              if($scope.displaybeacons.length == 0){
-                  $scope.displaybeacons.push(toPush);
-                  $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
-              }
-              else{
-                var check = $scope.displaybeacons.indexOf(toPush);
-                if(check == -1){
-                  $scope.displaybeacons.push(toPush);
-                  $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
-                }
-              }
-          }
-      },function(err){ console.log(err.message) });
+      $scope.retrieveData();
 
       //Toast notification for bluetooth
       $timeout(function(){
@@ -164,47 +169,39 @@ app.controller('ibeaconNotifyCtrl',function(
                         icons: $scope.beaconData.icons,
                         content: $scope.beaconData.content,
                         fulldate_detected: d.toUTCString(),
-                        date_detected: stringDate.convertedDate()
+                        date_detected: stringDate.convertedDate(),
+                        unique_id: $scope.beaconData.title + stringDate.convertedDate()
                   };
+
                   //Store and Update Data from DB
-                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table WHERE title = ? AND date_detected = ?',[urlText.title,urlText.date_detected]).then(function(res){
-                      console.log(res.rows);
-                      if(res.rows.length == 0){
-                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (title , text , url , content , icons , fulldate_detected , date_detected) VALUES (?,?,?,?,?,?,?)',
-                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected]).then(function(res){
+                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
+                      killBeacon.killnow(9000);
+                      var resLen = res.rows.length;
+                      if(resLen != 0){
+                          for(var x = 0; x != resLen; x++){
+                              if($scope.tempDB.indexOf(res.rows.item(x).unique_id) == -1){
+                                  $scope.tempDB.push(res.rows.item(x).unique_id);
+                              }
+                          }
+                      }
+                      if($scope.tempDB.indexOf(urlText.unique_id) == -1){
+                          $scope.tempDB.push(urlText.unique_id);
+                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (title , text , url , content , icons , fulldate_detected , date_detected , unique_id) VALUES (?,?,?,?,?,?,?,?)',
+                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
                               console.log("ID: " + res.insertId);
                           },function(err){ console.log(err.message); });
                       }
                       else{
-                        console.log("DUPLICATES: " + res.rows.length);
-                        if(res.rows.length == 1){
-                            var toUpdate = res.rows.item(0);
-                            $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ?, date_detected = ? WHERE title = ? AND date_detected = ?',
-                            [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected, toUpdate.title, toUpdate.date_detected]).then(function(res){
-                                console.log("Successfully Updated. . . ");
-                            },function(err){ console.log(err); })
-                        }
+                          $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE unique_id = ?',
+                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
+                              console.log("Successfully Updated. . . ");
+                          },function(err){ console.log(err); })
                       }
-                  },function(err){ console.log(err.message)});
+                  },function(err){ console.log(err); });
+
 
                   //Retrieve Data from DB
-                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
-                      var resLen = res.rows.length;
-                      for(var x = 0; x != resLen; x++){
-                          var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
-                          if($scope.displaybeacons.length == 0){
-                              $scope.displaybeacons.push(toPush);
-                              $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
-                          }
-                          else{
-                            var check = $scope.displaybeacons.indexOf(toPush);
-                            if(check == -1){
-                              $scope.displaybeacons.push(toPush);
-                              $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
-                            }
-                          }
-                      }
-                  },function(err){ console.log(err.message) });
+                  $scope.retrieveData();
 
               },function(err){
                   console.log(err.data); //Erorr logs
