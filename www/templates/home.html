@@ -1,6 +1,10 @@
 <ion-view>
       <!--Main Floating Menu-->
-      <ion-floating-button click="refreshFloatingMenu()" icon="ion-home" button-color="#666666"></ion-floating-button>
+      <!--Disable backdrop for nice view-->
+      <ion-floating-menu backdrop="false" menu-color="#666666" menu-open-color="#7f7f7f">
+          <ion-floating-item button-color="#7f7f7f" icon="ion-home"  text="Home" click="refreshFloatingMenu()"></ion-floating-item>
+          <ion-floating-item button-color="#7f7f7f" icon="ion-person" text="Profile" click="myEvent()"></ion-floating-item>
+      </ion-floating-menu>
 
       <!--Flash banner/image/poster ads-->
       <ion-content class="has-header" scroll="false">
