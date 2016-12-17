@@ -1,11 +1,18 @@
 #menu-header {
-    font-size: 27px;
+    font-size: 31.2px;
     font-weight: bold;
     color: white;
 }
 
 #side-header-image {
     width: 200px;
+    padding-top: 8px;
+    padding-bottom: 8px;
+}
+
+#side-header-image-item {
+    background-image: url('../img/side-menu-header-item-bg.png');
+    border: transparent !important;
 }
 
 #side-menu-text {
@@ -13,7 +20,10 @@
 }
 
 #preference-item {
+    border: transparent !important;
     background-color: #444;
+    padding-top: 6px;
+    padding-bottom: 6px;
 }
 
 #side-menu-item {
@@ -35,14 +45,14 @@
 #preferences {
     font-size: 16px !important;
     position: absolute;
-    margin-top: 0.5%;
-    margin-left: 5px;
+    margin-top: 1.6%;
+    margin-left: 6px;
 }
 
 #reload {
-  margin-top: 2.3px;
+    margin-top: 2.5px;
     position: absolute;
-    margin-left: 225px;
+    margin-left: 215px;
     font-size: 25px;
 }
 

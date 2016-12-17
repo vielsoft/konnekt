@@ -74,7 +74,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.aboutKonnekt = function(){
         aboutKonnekt.about();
     };
-    
+
     //Retrieve Data from cordovaSQLite Storage
     $scope.retrieveData = function(){
         $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
@@ -180,7 +180,7 @@ app.controller('ibeaconNotifyCtrl',function(
                           $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (id , title , text , url , content , icons , fulldate_detected , date_detected) VALUES (?,?,?,?,?,?,?,?)',
                           [urlText.unique_id , urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected]).then(function(res){
                               console.info("ID: " + res.insertId + " **** INSERT: " + urlText.title);
-                          },function(err){ /*console.log(err.message);*/ });
+                          },function(err){ });
                       }
                       else{
                         $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE id = ?',
