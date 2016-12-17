@@ -74,7 +74,7 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.aboutKonnekt = function(){
         aboutKonnekt.about();
     };
-
+    
     //Retrieve Data from cordovaSQLite Storage
     $scope.retrieveData = function(){
         $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
@@ -95,6 +95,7 @@ app.controller('ibeaconNotifyCtrl',function(
             }
         },function(err){ console.log(err.message) });
     };
+
 
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
@@ -174,31 +175,20 @@ app.controller('ibeaconNotifyCtrl',function(
                   };
 
                   //Store and Update Data from DB
-                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
-                      killBeacon.killnow(9000);
-                      var resLen = res.rows.length;
-                      if(resLen != 0){
-                          for(var x = 0; x != resLen; x++){
-                              if($scope.tempDB.indexOf(res.rows.item(x).unique_id) == -1){
-                                  $scope.tempDB.push(res.rows.item(x).unique_id);
-                              }
-                          }
-                      }
-                      if($scope.tempDB.indexOf(urlText.unique_id) == -1){
-                          $scope.tempDB.push(urlText.unique_id);
-                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (title , text , url , content , icons , fulldate_detected , date_detected , unique_id) VALUES (?,?,?,?,?,?,?,?)',
-                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
-                              console.log("ID: " + res.insertId);
-                          },function(err){ console.log(err.message); });
+                  $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table WHERE id = ?',[urlText.unique_id]).then(function(res){
+                      if(res.rows.length == 0){
+                          $cordovaSQLite.execute(db,'INSERT INTO konnekt_table (id , title , text , url , content , icons , fulldate_detected , date_detected) VALUES (?,?,?,?,?,?,?,?)',
+                          [urlText.unique_id , urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected]).then(function(res){
+                              console.info("ID: " + res.insertId + " **** INSERT: " + urlText.title);
+                          },function(err){ /*console.log(err.message);*/ });
                       }
                       else{
-                          $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE unique_id = ?',
-                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
-                              console.log("Successfully Updated. . . ");
-                          },function(err){ console.log(err); })
+                        $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE id = ?',
+                        [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
+                            console.log("SUCCESS UPDATE: " + urlText.title);
+                        },function(err){ console.log(err); });
                       }
                   },function(err){ console.log(err); });
-
 
                   //Retrieve Data from DB
                   $scope.retrieveData();
