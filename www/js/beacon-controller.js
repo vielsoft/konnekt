@@ -31,7 +31,6 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
     $scope.displaybeacons = [];
-    $scope.tempDB = [];
     $scope.localStorageBeaconDataDisplay = [];
     //Notification and beacon detection moderator
     $scope.notificationModerator = [];
