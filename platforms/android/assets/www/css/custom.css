@@ -56,6 +56,11 @@
     font-size: 25px;
 }
 
+#toggle-ads {
+    box-shadow: 1px 1px 1px 1px #e5e5e5;
+    margin-bottom: 3.4px;
+}
+
 .bar-header {
     border: 0px !important;
     border-bottom-color: transparent !important;

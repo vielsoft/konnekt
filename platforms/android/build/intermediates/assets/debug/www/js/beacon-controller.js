@@ -75,8 +75,8 @@ app.controller('ibeaconNotifyCtrl',function(
     };
 
     //Retrieve Data from cordovaSQLite Storage
-    $scope.retrieveData = function(){
-        $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table').then(function(res){
+    $scope.retrieveDataStartup = function(){
+        $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table ORDER BY fulldate_detected DESC').then(function(res){
             var resLen = res.rows.length;
             for(var x = 0; x != resLen; x++){
                 var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
@@ -96,10 +96,32 @@ app.controller('ibeaconNotifyCtrl',function(
     };
 
 
+    //Retrieve Data from cordovaSQLite Storage
+    $scope.retrieveDataProduction = function(){
+        $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table ORDER BY fulldate_detected DESC').then(function(res){
+            var resLen = res.rows.length;
+            for(var x = 0; x != resLen; x++){
+                var toPush = res.rows.item(x).title + res.rows.item(x).date_detected;
+                if($scope.displaybeacons.length == 0){
+                    $scope.displaybeacons.push(toPush);
+                    $scope.localStorageBeaconDataDisplay.unshift(res.rows.item(x));
+                }
+                else{
+                  var check = $scope.displaybeacons.indexOf(toPush);
+                  if(check == -1){
+                    $scope.displaybeacons.push(toPush);
+                    $scope.localStorageBeaconDataDisplay.unshift(res.rows.item(x));
+                  }
+                }
+            }
+        },function(err){ console.log(err.message) });
+    };
+
+
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
-      //Retrieve Data from DB
-      $scope.retrieveData();
+      //Retrieve Data from DB on Startup
+      $scope.retrieveDataStartup();
 
       //Toast notification for bluetooth
       $timeout(function(){
@@ -189,8 +211,8 @@ app.controller('ibeaconNotifyCtrl',function(
                       }
                   },function(err){ console.log(err); });
 
-                  //Retrieve Data from DB
-                  $scope.retrieveData();
+                  //Retrieve Data from DB on Production
+                  $scope.retrieveDataProduction();
 
               },function(err){
                   console.log(err.data); //Erorr logs
@@ -276,7 +298,6 @@ app.controller('ibeaconNotifyCtrl',function(
           }
           $scope.$apply();
       });
-
     });
 
 });

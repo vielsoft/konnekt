@@ -51,7 +51,7 @@
 
       <!--Show Menu-->
       <ion-side-menu side="left" id="side-menu-size" width="{{ sideMenuWidth }}">
-          <ion-list>
+          <ion-list >
             <ion-item id="side-header-image-item">
               <img id="side-header-image" ng-src="img/side-header.png">
             </ion-item>
@@ -63,9 +63,11 @@
             </ion-item>
           </ion-list>
 
-
           <!--Show Scan Advertisements-->
-          <ion-toggle ng-model="showBeaconStatus" toggle-class="toggle-dark">Show scanned Advertisements &nbsp;&nbsp;&nbsp;</ion-toggle>
+          <div id="toggle-ads">
+            <ion-toggle ng-model="showBeaconStatus" toggle-class="toggle-dark">Show scanned Advertisements &nbsp;&nbsp;&nbsp;</ion-toggle>
+          </div>
+
           <!--Beacon Status-->
           <ion-scroll zooming="true" direction="y" style="width: 300px; height: 500px">
             <div class="list" ng-show="showBeaconStatus">
