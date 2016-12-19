@@ -38,7 +38,7 @@ app.run(function($ionicPlatform,$cordovaBeacon,$window,clearAppDataCache,$cordov
         db = $cordovaSQLite.openDB({name:'konnekt.db',location:'default'});
         //db = window.openDatabase("konnekt.db", "1.0", "Cordova Demo", 200000);
         //var db = $cordovaSQLite.openDB({name:'konnekt.db',bgType:1,location:'default'});
-        $cordovaSQLite.execute(db,"CREATE TABLE IF NOT EXISTS konnekt_table (id text primary key , title  text , text text , url text , icons text , content text , fulldate_detected text , date_detected text)")
+        $cordovaSQLite.execute(db,"CREATE TABLE IF NOT EXISTS konnekt_table (id text primary key , title  text , text text , url text , icons text , content text , fulldate_detected date , date_detected text)")
         .then(function(res){
             console.log("konnekt_table has been created . . . ");
         },function(err){
