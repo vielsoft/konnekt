@@ -40,6 +40,7 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Handle sidemenu preferences
     $scope.toggleLeft = function(){
+      killBeacon.killnow(5000);
       $ionicSideMenuDelegate.toggleLeft()
     };
 
@@ -71,10 +72,16 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //About Konnekt button
     $scope.aboutKonnekt = function(){
+        killBeacon.killnow(5000);
         aboutKonnekt.about();
     };
 
-    //Retrieve Data from cordovaSQLite Storage
+    //Temporary killbeacon when gesture is detected
+    $scope.screenGesture = function(){
+        killBeacon.killnow(5000);
+    };
+
+    //Retrieve Data from cordovaSQLite Storage on Startup
     $scope.retrieveDataStartup = function(){
         $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table ORDER BY fulldate_detected DESC').then(function(res){
             var resLen = res.rows.length;
@@ -95,8 +102,7 @@ app.controller('ibeaconNotifyCtrl',function(
         },function(err){ console.log(err.message) });
     };
 
-
-    //Retrieve Data from cordovaSQLite Storage
+    //Retrieve Data from cordovaSQLite Storage on Production
     $scope.retrieveDataProduction = function(){
         $cordovaSQLite.execute(db,'SELECT * FROM konnekt_table ORDER BY fulldate_detected DESC').then(function(res){
             var resLen = res.rows.length;
