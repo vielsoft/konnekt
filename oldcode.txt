@@ -1,0 +1,33 @@
+//Notification listen when clicked redirect to corresponding state
+$rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+    if($ionicSideMenuDelegate.isOpen()){
+        $scope.toggleLeft();
+    }
+    $scope.homeViewClick = false;
+    viewProperty.set('homeView','block');
+    var notifId = notification.id;
+    if(notifId != 0){
+        $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
+
+            $scope.notificationData = response.data[0];
+            //console.log($scope.notificationData);
+
+            do{
+                killBeacon.killnow(100000);
+                //Posting beacons advertisements in main page when click from notification panel
+                $scope.adsPost = $scope.notificationData.content;
+                $scope.redirLinkNotif = $scope.notificationData.url;
+            }while($scope.adsPost != $scope.notificationData.content && $scope.redirLinkNotif != $scope.notificationData.url)
+
+            //Redirect Url Links from notication
+            $scope.urlRedirect = function(){
+                $window.open($scope.redirLinkNotif,"_blank","location=yes");
+                console.log("Notification Click link: " + $scope.redirLinkNotif);
+            };
+
+        },function(err){
+            $cordovaToast.show("Please check your network connection . . .","long","center");
+            console.log(err.data); //Erorr logs
+        });
+  }
+});
