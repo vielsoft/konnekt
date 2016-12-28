@@ -15,6 +15,10 @@
     border: transparent !important;
 }
 
+#log-in-content {
+    background-color: #F3F5F8;
+}
+
 #side-menu-text {
     font-size: 2px;
 }

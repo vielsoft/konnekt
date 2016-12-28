@@ -8,17 +8,17 @@ app.controller('ibeaconNotifyCtrl',function(
     killBeacon,
     aboutKonnekt,
     viewProperty,
+    loadingState,
     $http,
     $state,
     $scope,
     $window,
     $timeout,
-    $location,
     $rootScope,
     $ionicPopup,
     $cordovaToast,
-    $ionicHistory,
     $cordovaSQLite,
+    $ionicLoading,
     $ionicPlatform,
     $cordovaBeacon,
     $ionicSideMenuDelegate,
@@ -27,6 +27,8 @@ app.controller('ibeaconNotifyCtrl',function(
     $scope.sideMenuWidth = 300;
     //Initial image on load
     $scope.adsPost = defaultContent;
+    //Lazy Loading
+    $scope.lazyLoad = "/img/lazy-load.gif";
     //Hold becons in range
     $scope.rangebeacons = [];
     //Hold beacons to be displayed
@@ -40,19 +42,23 @@ app.controller('ibeaconNotifyCtrl',function(
 
     //Handle sidemenu preferences
     $scope.toggleLeft = function(){
-      killBeacon.killnow(5000);
-      $ionicSideMenuDelegate.toggleLeft()
+        $ionicSideMenuDelegate.toggleLeft()
+    };
+
+    //About Konnekt button
+    $scope.aboutKonnekt = function(){
+        aboutKonnekt.about();
     };
 
     //Trigger advertisements from sidemenu
     $scope.sideMenuAds = function(url,content){
-      $scope.toggleLeft();
+        $scope.toggleLeft();
         viewProperty.set('homeView','none');
         do{
             killBeacon.killnow(15000);
             $scope.sidemenuAdsPost = content;
             $scope.sidemenuUrlRedirect = function(){
-              $window.open(url,"_blank","location=yes");
+                $window.open(url,"_blank","location=yes");
             };
         }while($scope.sidemenuAdsPost != content)
     };
@@ -62,23 +68,13 @@ app.controller('ibeaconNotifyCtrl',function(
         viewProperty.set('homeView','block');
         do{
             $scope.homeViewClick = true;
-            killBeacon.killnow(30000);
+            killBeacon.killnow(120000);
             $state.go('home');
             $scope.adsPost = defaultContent;
             var x = document.getElementById('homeView');
             x.setAttribute('src',defaultContent);
+            console.log("Refresh floating menu . . . ");
         }while($scope.adsPost != defaultContent)
-    };
-
-    //About Konnekt button
-    $scope.aboutKonnekt = function(){
-        killBeacon.killnow(5000);
-        aboutKonnekt.about();
-    };
-
-    //Temporary killbeacon when gesture is detected
-    $scope.screenGesture = function(){
-        killBeacon.killnow(5000);
     };
 
     //Retrieve Data from cordovaSQLite Storage on Startup
@@ -92,11 +88,11 @@ app.controller('ibeaconNotifyCtrl',function(
                     $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
                 }
                 else{
-                  var check = $scope.displaybeacons.indexOf(toPush);
-                  if(check == -1){
-                    $scope.displaybeacons.push(toPush);
-                    $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
-                  }
+                    var check = $scope.displaybeacons.indexOf(toPush);
+                    if(check == -1){
+                      $scope.displaybeacons.push(toPush);
+                      $scope.localStorageBeaconDataDisplay.push(res.rows.item(x));
+                    }
                 }
             }
         },function(err){ console.log(err.message) });
@@ -113,16 +109,15 @@ app.controller('ibeaconNotifyCtrl',function(
                     $scope.localStorageBeaconDataDisplay.unshift(res.rows.item(x));
                 }
                 else{
-                  var check = $scope.displaybeacons.indexOf(toPush);
-                  if(check == -1){
-                    $scope.displaybeacons.push(toPush);
-                    $scope.localStorageBeaconDataDisplay.unshift(res.rows.item(x));
-                  }
+                    var check = $scope.displaybeacons.indexOf(toPush);
+                    if(check == -1){
+                      $scope.displaybeacons.push(toPush);
+                      $scope.localStorageBeaconDataDisplay.unshift(res.rows.item(x));
+                    }
                 }
             }
         },function(err){ console.log(err.message) });
     };
-
 
     //Beacon Detecttion Process
     $ionicPlatform.ready(function(){
@@ -133,14 +128,14 @@ app.controller('ibeaconNotifyCtrl',function(
       $timeout(function(){
             //Detect if bluetooth hardware is enabled
             $cordovaBeacon.isBluetoothEnabled().then(function(state){
-              if(state == true){
-                    console.log('Bluetooth is enabled . . .');
-                    $cordovaToast.show("Bluetooth is enabled","short","center");
-              }
-              else{
-                    console.log('Bluetooth is disabled . . . ');
-                    $cordovaToast.show("Please enable bluetooth on your settings","long","center");
-              }
+                if(state == true){
+                      console.log('Bluetooth is enabled . . .');
+                      //$cordovaToast.show("Bluetooth is enabled","short","center");
+                }
+                else{
+                      console.log('Bluetooth is disabled . . . ');
+                      $cordovaToast.show("Please enable bluetooth on your settings","long","center");
+                }
             });
       },5000);
 
@@ -181,6 +176,7 @@ app.controller('ibeaconNotifyCtrl',function(
                   console.log($scope.beaconDetectModerator.length);
                }
           }catch(err){
+               killBeacon.killnow(5000);
                console.log("major and minor is empty . . .");
           }
 
@@ -189,7 +185,6 @@ app.controller('ibeaconNotifyCtrl',function(
               $http.get(apiUrl + '/device/beacon/' + minorBeacons + '/' + majorBeacons).then(function(response){
                   $scope.beaconData = response.data[0];
                   var d = new Date();
-                  //Data to be push in DB
                   var urlText = {
                         title: $scope.beaconData.title,
                         text: $scope.beaconData.text,
@@ -210,10 +205,10 @@ app.controller('ibeaconNotifyCtrl',function(
                           },function(err){ });
                       }
                       else{
-                        $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE id = ?',
-                        [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
-                            console.log("SUCCESS UPDATE: " + urlText.title);
-                        },function(err){ console.log(err); });
+                          $cordovaSQLite.execute(db,'UPDATE konnekt_table SET title = ? , text = ? , url = ? , content = ? , icons = ? , fulldate_detected = ? , date_detected = ?  WHERE id = ?',
+                          [urlText.title , urlText.text , urlText.url , urlText.content , urlText.icons , urlText.fulldate_detected , urlText.date_detected , urlText.unique_id]).then(function(res){
+                              console.log("SUCCESS UPDATE: " + urlText.title);
+                          },function(err){ console.log(err); });
                       }
                   },function(err){ console.log(err); });
 
@@ -262,45 +257,45 @@ app.controller('ibeaconNotifyCtrl',function(
 
                       //Redirect Url links from main page
                       $scope.urlRedirect = function(){
-                        $window.open($scope.redirLink,"_blank","location=yes");
-                        console.log("Home Click link: " + $scope.redirLink);
+                          $window.open($scope.redirLink,"_blank","location=yes");
+                          console.log("Home Click link: " + $scope.redirLink);
                       };
                   }
               }
 
-            //Notification listen when clicked redirect to corresponding state
-            $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
-                if($ionicSideMenuDelegate.isOpen()){
-                    $scope.toggleLeft();
+              //Notification listen when clicked redirect to corresponding state
+              $rootScope.$on('$cordovaLocalNotification:click',function(event,notification,state){
+                  if($ionicSideMenuDelegate.isOpen()){
+                      $scope.toggleLeft();
+                  }
+                  $scope.homeViewClick = false;
+                  viewProperty.set('homeView','block');
+                  var notifId = notification.id;
+                  if(notifId != 0){
+                      $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
+
+                          $scope.notificationData = response.data[0];
+                          console.log($scope.notificationData.title + " notification tapped . . .");
+                          loadingState.show(3000);
+                          do{
+                              killBeacon.killnow(100000);
+                              //Posting beacons advertisements in main page when click from notification panel
+                              $scope.adsPost = $scope.notificationData.content;
+                              $scope.redirLinkNotif = $scope.notificationData.url;
+                          }while($scope.adsPost != $scope.notificationData.content && $scope.redirLinkNotif != $scope.notificationData.url)
+
+                          //Redirect Url Links from notication
+                          $scope.urlRedirect = function(){
+                              $window.open($scope.redirLinkNotif,"_blank","location=yes");
+                              console.log("Notification Click link: " + $scope.redirLinkNotif);
+                          };
+
+                      },function(err){
+                          $cordovaToast.show("Please check your network connection . . .","long","center");
+                          console.log(err.data); //Erorr logs
+                      });
                 }
-                $scope.homeViewClick = false;
-                viewProperty.set('homeView','block');
-                var notifId = notification.id;
-                if(notifId != 0){
-                    $http.get(apiUrl + '/device/beacon/' + notifId).then(function(response){
-
-                        $scope.notificationData = response.data[0];
-                        console.log($scope.notificationData);
-
-                        do{
-                            killBeacon.killnow(100000);
-                            //Posting beacons advertisements in main page when click from notification panel
-                            $scope.adsPost = $scope.notificationData.content;
-                            $scope.redirLinkNotif = $scope.notificationData.url;
-                        }while($scope.adsPost != $scope.notificationData && $scope.redirLinkNotif != $scope.notificationData.url)
-
-                        //Redirect Url Links from notication
-                        $scope.urlRedirect = function(){
-                          $window.open($scope.redirLinkNotif,"_blank","location=yes");
-                          console.log("Notification Click link: " + $scope.redirLinkNotif);
-                        };
-
-                    },function(err){
-                        $cordovaToast.show("Please check your network connection . . .","long","center");
-                        console.log(err.data); //Erorr logs
-                    });
-              }
-            });
+              });
           }
           $scope.$apply();
       });
