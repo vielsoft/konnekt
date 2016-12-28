@@ -1,5 +1,4 @@
 app.config(function($stateProvider,$urlRouterProvider,$ionicConfigProvider){
-
     $stateProvider
     .state('home',{
         cache: false,
