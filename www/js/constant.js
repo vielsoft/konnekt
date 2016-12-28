@@ -1,5 +1,5 @@
 //API URL
-app.constant('apiUrl','http://192.168.10.154:3000/api');
+app.constant('apiUrl','http://188.166.253.131/api');
 
 //Beacon Identifier
 app.constant('ibeaconIdentifier','iBeacon');
